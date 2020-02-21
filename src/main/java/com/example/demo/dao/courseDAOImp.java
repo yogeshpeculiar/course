@@ -36,7 +36,7 @@ public class courseDAOImp implements CourseDAO {
 			return true;
 	} 
 	public Course update(Course c) {
-		System.out.println("before updating object"+c);
+		System.out.println("before updating object"+c.toString());
 		return em.merge(c);
 	}
 	public String delete(int id) {

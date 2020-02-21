@@ -12,7 +12,7 @@ public class Level {
 	@Id
 	private int id;
 	private String name;
-	@Column(name="`is_active`")
+	@Column(name="`isactive`")
 	private boolean isActive;
 	@Column(name="`created_by`")
 	private String createdBy;
