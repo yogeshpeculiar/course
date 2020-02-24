@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dao.CourseDAO;
 import com.example.demo.dao.courseDAOImp;
 import com.example.demo.model.Course;
+import com.example.demo.model.CourseSubscribedVideo;
 import com.example.demo.service.CourseService;
 
 @RestController

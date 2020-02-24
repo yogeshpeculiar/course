@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dao.*;
 import com.example.demo.model.Course;
+import com.example.demo.model.CourseSubscribedVideo;
 
 
 @Service

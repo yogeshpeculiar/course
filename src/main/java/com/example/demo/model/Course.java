@@ -36,6 +36,10 @@ public class Course {
 	@JoinColumn(name="`category_id`")
 	private Category categorys;
 	
+//	@ManyToOne(targetEntity = CourseSubscribedVideo.class,cascade = CascadeType.ALL)
+//	@JoinColumn(name="video_id")
+//	private CourseSubscribedVideo l_courseSubvedobj;
+	
 	/*
 	 * @OneToMany
 	 *  
@@ -51,9 +55,13 @@ public class Course {
 	 * inverseJoinColumns={@JoinColumn(name="video_id", referencedColumnName="id")})
 	 */
 
-   
-	private CourseSubscribedVedio CourseSubscribedVedioObj;
-	
+@OneToMany
+@JoinColumn(name="id")
+private List<CourseSubscribedVideo> CourseSubscribedVideoObj;
+
+@OneToMany
+@JoinColumn(name="id")
+private List<CourseSubscribedText> CourseSubscribedTextObj;
 	/*
 	 * @OneToOne
 	 * 
@@ -61,15 +69,23 @@ public class Course {
 	 * content_attachements;
 	 */
 	
-	 @ManyToOne(cascade = CascadeType.ALL)
-	public CourseSubscribedVedio getCourseSubscribedVedioObj() {
-		return CourseSubscribedVedioObj;
-	}
-	public void setCourseSubscribedVedioObj(CourseSubscribedVedio courseSubscribedVedioObj) {
-		CourseSubscribedVedioObj = courseSubscribedVedioObj;
-	}
+	
+
+	public List<CourseSubscribedText> getCourseSubscribedTextObj() {
+	return CourseSubscribedTextObj;
+}
+public void setCourseSubscribedTextObj(List<CourseSubscribedText> courseSubscribedTextObj) {
+	CourseSubscribedTextObj = courseSubscribedTextObj;
+}
 	@Column(name="`name`")
 	private String name;
+	
+	public List<CourseSubscribedVideo> getCourseSubscribedVideoObj() {
+		return CourseSubscribedVideoObj;
+	}
+	public void setCourseSubscribedVideoObj(List<CourseSubscribedVideo> courseSubscribedVideoObj) {
+		CourseSubscribedVideoObj = courseSubscribedVideoObj;
+	}
 	@Column(name="`tag`")
 	private String tag;
 	@Column(name="`slug`")
