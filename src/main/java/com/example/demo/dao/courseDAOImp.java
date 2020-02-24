@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.CourseSubscribedVideo;
 @Repository
 public class courseDAOImp implements CourseDAO {
 
@@ -36,7 +37,7 @@ public class courseDAOImp implements CourseDAO {
 			return true;
 	} 
 	public Course update(Course c) {
-		System.out.println("before updating object"+c);
+		System.out.println("before updating object"+c.toString());
 		return em.merge(c);
 	}
 	public String delete(int id) {

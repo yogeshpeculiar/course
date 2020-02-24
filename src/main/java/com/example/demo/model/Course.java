@@ -1,15 +1,21 @@
 package com.example.demo.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 @Entity
 @Table(name = "courses")
 public class Course {
@@ -18,27 +24,77 @@ public class Course {
 	private int id;
 	@OneToOne
 	@JoinColumn(name="`level_id`")
-	private Level level_id;
-	
+	private Level levels;
+	/*
+	 * @Transient private long levelId;
+	 * 
+	 * 
+	 * public long getLevelId() { return levelId; } public void setLevelId(long
+	 * levelId) { this.levelId = levelId; }
+	 */
 	@OneToOne
 	@JoinColumn(name="`category_id`")
-	private Category category_id;
+	private Category categorys;
 	
-	@OneToOne
-	@JoinColumn(name="`content_attachement_id`")
-	private CourseContent content_attachement_id;
+//	@ManyToOne(targetEntity = CourseSubscribedVideo.class,cascade = CascadeType.ALL)
+//	@JoinColumn(name="video_id")
+//	private CourseSubscribedVideo l_courseSubvedobj;
 	
+	/*
+	 * @OneToMany
+	 *  
+	 * @JoinColumn(name="'course_subscribed_video_id'") private
+	 * List<CourseSubscribedText> CourseSubscribedTextObj;
+	 */
+	
+	/*
+	 * @OneToMany(cascade=CascadeType.ALL)
+	 * 
+	 * @JoinTable(name="course_subscribed_videos",
+	 * joinColumns={@JoinColumn(name="course_id", referencedColumnName="id")} ,
+	 * inverseJoinColumns={@JoinColumn(name="video_id", referencedColumnName="id")})
+	 */
+
+@OneToMany
+@JoinColumn(name="id")
+private List<CourseSubscribedVideo> CourseSubscribedVideoObj;
+
+@OneToMany
+@JoinColumn(name="id")
+private List<CourseSubscribedText> CourseSubscribedTextObj;
+	/*
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name="`content_attachement_id`") private CourseContent
+	 * content_attachements;
+	 */
+	
+	
+
+	public List<CourseSubscribedText> getCourseSubscribedTextObj() {
+	return CourseSubscribedTextObj;
+}
+public void setCourseSubscribedTextObj(List<CourseSubscribedText> courseSubscribedTextObj) {
+	CourseSubscribedTextObj = courseSubscribedTextObj;
+}
 	@Column(name="`name`")
 	private String name;
+	
+	public List<CourseSubscribedVideo> getCourseSubscribedVideoObj() {
+		return CourseSubscribedVideoObj;
+	}
+	public void setCourseSubscribedVideoObj(List<CourseSubscribedVideo> courseSubscribedVideoObj) {
+		CourseSubscribedVideoObj = courseSubscribedVideoObj;
+	}
 	@Column(name="`tag`")
 	private String tag;
 	@Column(name="`slug`")
 	private String slug;
 	@Column(name="`is_level_override`")
-	private boolean is_level_override;
+	private boolean is_level_override; 
 	@Column(name="`available_for`")
 	private boolean available_for;
-	@Column(name="`desc`")
+	@Column(name="`description`")
 	private String desc;
 	@Column(name="`meta_key`")
 	private String meta_key;
@@ -53,30 +109,38 @@ public class Course {
 	@Column(name="`modified_on`")
 	private Date modifiedOn;
 	
+	/*
+	 * public CourseContent getContent_attachements() { return content_attachements;
+	 * } public void setContent_attachements(CourseContent content_attachements) {
+	 * this.content_attachements = content_attachements; }
+	 */
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+	public Category getCategorys() {
+		return categorys;
+	}
+	public void setCategorys(Category categorys) {
+		this.categorys = categorys;
+	}
+	
+	public Level getLevels() {
+		return levels;
+	}
+	public void setLevels(Level levels) {
+		this.levels = levels;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Level getLevel_id() {
-		return level_id;
-	}
-	public void setLevel_id(Level level_id) {
-		this.level_id = level_id;
-	}
-	public Category getCategory_id() {
-		return category_id;
-	}
-	public void setCategory_id(Category category_id) {
-		this.category_id = category_id;
-	}
-	public CourseContent getContent_attachment_id() {
-		return content_attachement_id;
-	}
-	public void setContent_attachment_id(CourseContent content_attachement_id) {
-		this.content_attachement_id = content_attachement_id;
-	}
+	
+
 	public String getTag() {
 		return tag;
 	}
@@ -149,5 +213,15 @@ public class Course {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	/*
+	 * public List<CourseSubscribedText> getCourseSubscribedTextObj() { return
+	 * CourseSubscribedTextObj; } public void
+	 * setCourseSubscribedTextObj(List<CourseSubscribedText>
+	 * courseSubscribedTextObj) { CourseSubscribedTextObj = courseSubscribedTextObj;
+	 * }
+	 */
+
+	
 
 }
