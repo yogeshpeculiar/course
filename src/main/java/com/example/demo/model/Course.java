@@ -20,40 +20,14 @@ import javax.persistence.Transient;
 @Table(name = "courses")
 public class Course {
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int id;
 	@OneToOne
 	@JoinColumn(name="`level_id`")
 	private Level levels;
-	/*
-	 * @Transient private long levelId;
-	 * 
-	 * 
-	 * public long getLevelId() { return levelId; } public void setLevelId(long
-	 * levelId) { this.levelId = levelId; }
-	 */
 	@OneToOne
 	@JoinColumn(name="`category_id`")
 	private Category categorys;
-	
-//	@ManyToOne(targetEntity = CourseSubscribedVideo.class,cascade = CascadeType.ALL)
-//	@JoinColumn(name="video_id")
-//	private CourseSubscribedVideo l_courseSubvedobj;
-	
-	/*
-	 * @OneToMany
-	 *  
-	 * @JoinColumn(name="'course_subscribed_video_id'") private
-	 * List<CourseSubscribedText> CourseSubscribedTextObj;
-	 */
-	
-	/*
-	 * @OneToMany(cascade=CascadeType.ALL)
-	 * 
-	 * @JoinTable(name="course_subscribed_videos",
-	 * joinColumns={@JoinColumn(name="course_id", referencedColumnName="id")} ,
-	 * inverseJoinColumns={@JoinColumn(name="video_id", referencedColumnName="id")})
-	 */
 
 @OneToMany
 @JoinColumn(name="id")
@@ -62,58 +36,55 @@ private List<CourseSubscribedVideo> CourseSubscribedVideoObj;
 @OneToMany
 @JoinColumn(name="id")
 private List<CourseSubscribedText> CourseSubscribedTextObj;
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name="`content_attachement_id`") private CourseContent
-	 * content_attachements;
-	 */
 	
+	@Column(name="`tag`")
+	private String tag; 
 	
-
-	public List<CourseSubscribedText> getCourseSubscribedTextObj() {
-	return CourseSubscribedTextObj;
-}
-public void setCourseSubscribedTextObj(List<CourseSubscribedText> courseSubscribedTextObj) {
-	CourseSubscribedTextObj = courseSubscribedTextObj;
-}
+	@Column(name="`slug`")
+	private String slug;
+	
+	@Column(name="`is_level_override`")
+	private boolean is_level_override; 
+	
+	@Column(name="`available_for`")
+	private boolean available_for;
+	
+	@Column(name="`description`")
+	private String desc;
+	
+	@Column(name="`meta_key`")
+	private String meta_key;
+	
+	@Column(name="`meta_desc`")
+	private String meta_desc;
+	
+	@Column(name="`created_by`")
+	private String created_by;
+	
+	@Column(name="`modified_by`")
+	private String modified_by;
+	
+	@Column(name="`created_on`")
+	private Date created_on;
+	
+	@Column(name="`modified_on`")
+	private Date modifiedOn;
+	
 	@Column(name="`name`")
 	private String name;
-	
+
 	public List<CourseSubscribedVideo> getCourseSubscribedVideoObj() {
 		return CourseSubscribedVideoObj;
 	}
 	public void setCourseSubscribedVideoObj(List<CourseSubscribedVideo> courseSubscribedVideoObj) {
 		CourseSubscribedVideoObj = courseSubscribedVideoObj;
 	}
-	@Column(name="`tag`")
-	private String tag;
-	@Column(name="`slug`")
-	private String slug;
-	@Column(name="`is_level_override`")
-	private boolean is_level_override; 
-	@Column(name="`available_for`")
-	private boolean available_for;
-	@Column(name="`description`")
-	private String desc;
-	@Column(name="`meta_key`")
-	private String meta_key;
-	@Column(name="`meta_desc`")
-	private String meta_desc;
-	@Column(name="`created_by`")
-	private String created_by;
-	@Column(name="`modified_by`")
-	private String modified_by;
-	@Column(name="`created_on`")
-	private Date created_on;
-	@Column(name="`modified_on`")
-	private Date modifiedOn;
-	
-	/*
-	 * public CourseContent getContent_attachements() { return content_attachements;
-	 * } public void setContent_attachements(CourseContent content_attachements) {
-	 * this.content_attachements = content_attachements; }
-	 */
+	public List<CourseSubscribedText> getCourseSubscribedTextObj() {
+	return CourseSubscribedTextObj;
+			}
+	public void setCourseSubscribedTextObj(List<CourseSubscribedText> courseSubscribedTextObj) {
+	CourseSubscribedTextObj = courseSubscribedTextObj;
+		}
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
@@ -214,13 +185,6 @@ public void setCourseSubscribedTextObj(List<CourseSubscribedText> courseSubscrib
 		this.name = name;
 	}
 
-	/*
-	 * public List<CourseSubscribedText> getCourseSubscribedTextObj() { return
-	 * CourseSubscribedTextObj; } public void
-	 * setCourseSubscribedTextObj(List<CourseSubscribedText>
-	 * courseSubscribedTextObj) { CourseSubscribedTextObj = courseSubscribedTextObj;
-	 * }
-	 */
 
 	
 
