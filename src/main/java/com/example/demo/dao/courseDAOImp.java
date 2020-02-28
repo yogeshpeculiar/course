@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Course;
 import com.example.demo.model.CourseSubscribedVideo;
+
+import DTO.updateDTO;
 @Repository
 public class courseDAOImp implements CourseDAO {
 
@@ -20,9 +22,9 @@ public class courseDAOImp implements CourseDAO {
 	
 	@Override
 	public void insert(Course c) {
-		System.out.println("before inserting object"+c);
+	
 		em.persist(c);
-		System.out.println("after inserting object"+c);
+		
 		}
 	public List<Course> view(){
 		List<Course> l=em.createQuery("from Course",Course.class).getResultList();//here in "from Course" Course is the model name
@@ -37,7 +39,7 @@ public class courseDAOImp implements CourseDAO {
 			return true;
 	} 
 	public Course update(Course c) {
-		System.out.println("before updating object"+c.toString());
+		
 		return em.merge(c);
 	}
 	public String delete(int id) {
@@ -48,6 +50,12 @@ public class courseDAOImp implements CourseDAO {
 		}
 		else
 			return "deletion failed as the given id does not exists...";
+	}
+	
+	@Override
+	public Course findCourseByID(int id) {
+		Course cc=em.find(Course.class, id);
+		return cc;
 	}
 	
 
