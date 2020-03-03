@@ -3,17 +3,11 @@ package com.example.demo.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Course;
-import com.example.demo.model.CourseSubscribedVideo;
-
-import DTO.updateDTO;
 @Repository
 public class courseDAOImp implements CourseDAO {
 
@@ -57,6 +51,10 @@ public class courseDAOImp implements CourseDAO {
 		Course cc=em.find(Course.class, id);
 		return cc;
 	}
-	
+	@Override
+	public String addImage(String filename) {
+		
+		return null;
+	}
 
 }

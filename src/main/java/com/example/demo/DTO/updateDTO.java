@@ -1,4 +1,4 @@
-package DTO;
+package com.example.demo.DTO;
 
 import java.util.List;
 
@@ -11,21 +11,28 @@ import com.example.demo.model.Level;
 
 public class updateDTO {
 	private int id;
-//	private LevelDTO levelDTOObj;
-//	private CategoryDTO categoryDTOObj;
-//	private List<CourseSubscribedVideo> CourseSubscribedVideoObj;
-//	private List<CourseSubscribedText> CourseSubscribedTextObj;
+	private String name;
 	private String tag;
-
 	private boolean is_level_override; 
-
 	private boolean available_for;
-
 	private String desc;
-
 	private String meta_key;
-
 	private String meta_desc;
+	
+	private LevelDTO levels;
+	private CategoryDTO categorys;
+	/*
+	 * private CourseSubscribedTextDTO CourseSubscribedTextObj; private
+	 * CourseSubscribedVideoDTO CourseSubscribedVideoObj;
+	 */
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;
@@ -36,38 +43,43 @@ public class updateDTO {
 	}
 
 	
-//	public List<CourseSubscribedVideo> getCourseSubscribedVideoObj() {
-//		return CourseSubscribedVideoObj;
-//	}
-//
-//	public void setCourseSubscribedVideoObj(List<CourseSubscribedVideo> courseSubscribedVideoObj) {
-//		CourseSubscribedVideoObj = courseSubscribedVideoObj;
-//	}
-//
-//	public List<CourseSubscribedText> getCourseSubscribedTextObj() {
-//		return CourseSubscribedTextObj;
-//	}
-//
-//	public void setCourseSubscribedTextObj(List<CourseSubscribedText> courseSubscribedTextObj) {
-//		CourseSubscribedTextObj = courseSubscribedTextObj;
-//	}
 
-//	public LevelDTO getLevelDTOObj() {
-//		return levelDTOObj;
-//	}
-//
-//	public void setLevelDTOObj(LevelDTO levelDTOObj) {
-//		this.levelDTOObj = levelDTOObj;
-//	}
 
-//	public CategoryDTO getCategoryDTOObj() {
-//		return categoryDTOObj;
-//	}
-//
-//	public void setCategoryDTOObj(CategoryDTO categoryDTOObj) {
-//		this.categoryDTOObj = categoryDTOObj;
-//	}
+	public LevelDTO getLevels() {
+		return levels;
+	}
 
+	public void setLevels(LevelDTO levels) {
+		this.levels = levels;
+	}
+
+	public CategoryDTO getCategorys() {
+		return categorys;
+	}
+
+	public void setCategors(CategoryDTO categorys) {
+		this.categorys = categorys;
+	}
+
+	/*
+	 * public CourseSubscribedTextDTO getCourseSubscribedTextObj() { return
+	 * CourseSubscribedTextObj; }
+	 * 
+	 * public void setCourseSubscribedTextObj(CourseSubscribedTextDTO
+	 * courseSubscribedTextObj) { CourseSubscribedTextObj = courseSubscribedTextObj;
+	 * }
+	 * 
+	 * public CourseSubscribedVideoDTO getCourseSubscribedVideoObj() { return
+	 * CourseSubscribedVideoObj; }
+	 * 
+	 * public void setCourseSubscribedVideoObj(CourseSubscribedVideoDTO
+	 * courseSubscribedVideoObj) { CourseSubscribedVideoObj =
+	 * courseSubscribedVideoObj; }
+	 */
+
+	public void setCategorys(CategoryDTO categorys) {
+		this.categorys = categorys;
+	}
 
 	public String getTag() {
 		return tag;
