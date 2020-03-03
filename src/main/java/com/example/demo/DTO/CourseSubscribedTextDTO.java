@@ -1,4 +1,4 @@
-package DTO;
+package com.example.demo.DTO;
 
 public class CourseSubscribedTextDTO {
 	private int id;

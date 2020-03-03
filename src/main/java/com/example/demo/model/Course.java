@@ -16,11 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "courses")
 public class Course {
 	@Id
-
 	private int id;
 	@OneToOne
 	@JoinColumn(name="`level_id`")
@@ -28,15 +29,15 @@ public class Course {
 	@OneToOne
 	@JoinColumn(name="`category_id`")
 	private Category categorys;
-
-@OneToMany
-@JoinColumn(name="id")
-private List<CourseSubscribedVideo> CourseSubscribedVideoObj;
-
-@OneToMany
-@JoinColumn(name="id")
-private List<CourseSubscribedText> CourseSubscribedTextObj;
-	
+//	@Transient
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
+	private List<CourseSubscribedVideo> CourseSubscribedVideoObj;
+//	@Transient
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="id")
+	private List<CourseSubscribedText> CourseSubscribedTextObj;
+	 
 	@Column(name="`tag`")
 	private String tag; 
 	
