@@ -19,7 +19,7 @@ import com.example.demo.dao.courseDAOImp;
 import com.example.demo.model.Course;
 import com.example.demo.model.CourseSubscribedVideo;
 import com.example.demo.service.CourseService;
-import com.example.demo.DTO.insertDTO;
+import com.example.demo.DTO.CourseDTO;
 import com.example.demo.DTO.updateDTO;;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -31,7 +31,7 @@ public class CourseController {
     
 
 	@PostMapping(value="")
-	public void addCourse(@RequestBody insertDTO insertDTOobj  ) {
+	public void addCourse(@RequestBody CourseDTO insertDTOobj  ) {
 		courseService.addCourse(insertDTOobj);
 	}
 	
@@ -49,10 +49,5 @@ public class CourseController {
 	public String delete(@PathVariable int id) {
 		return courseService.delete(id);
 	}
-	@PostMapping(value="/addImage/{filename}")
-	public String addImage(@PathVariable String filename) {
-		return courseService.addImage(filename);
-		
-			
-	}
+
 }

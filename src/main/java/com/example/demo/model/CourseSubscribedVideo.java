@@ -7,48 +7,49 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "course_subscribed_videos")
 public class CourseSubscribedVideo {
 	@Id
-private int id;
-	/*
-	 * @OneToMany(targetEntity = Course.class,cascade = CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name="id") private List<Course> courseId;
-	 */
-	@Column(name="course_id")
-	private int course_id;
+	private int id;
 	
-@Column(name="`video_id`")
-private int videoId;
-public int getId() {
-	return id;
-}
-public int getCourse_id() {
-	return course_id;
-}
-public void setCourse_id(int course_id) {
-	this.course_id = course_id;
-}
-public void setId(int id) {
-	this.id = id;
-}
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name="`course_id`")
+	private Course course;
+	
+	@OneToOne	
+	@JoinColumn(name="`video_id`")
+	private Video video;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public Video getVideo() {
+		return video;
+	}
+	public void setVideo(Video video) {
+		this.video = video;
+	}
 
-
-	/*
-	 * public List<Course> getCourseId() { return courseId; } public void
-	 * setCourseId(List<Course> courseId) { this.courseId = courseId; }
-	 */
-public int getVideoId() {
-	return videoId;
-}
-public void setVideoId(int videoId) {
-	this.videoId = videoId;
-}
+	
 
 
 }

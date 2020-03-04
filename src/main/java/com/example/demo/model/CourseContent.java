@@ -19,7 +19,7 @@ private int id;
 	private List<Video> video_id;
 	@OneToMany
 	@JoinColumn(name="`id`")
-	private List<Text> text_id;
+	private List<Docs> text_id;
 public int getId() {
 		return id;
 	}
@@ -32,10 +32,10 @@ public int getId() {
 	public void setVideo_id(List<Video> video_id) {
 		this.video_id = video_id;
 	}
-	public List<Text> getText_id() {
+	public List<Docs> getText_id() {
 		return text_id;
 	}
-	public void setText_id(List<Text> text_id) {
+	public void setText_id(List<Docs> text_id) {
 		this.text_id = text_id;
 	}
 	

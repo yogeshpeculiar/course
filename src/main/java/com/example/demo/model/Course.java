@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "courses")
 public class Course {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@OneToOne
 	@JoinColumn(name="`level_id`")
@@ -31,12 +32,12 @@ public class Course {
 	private Category categorys;
 //	@Transient
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
+	@JoinColumn(name="`course_id`")
 	private List<CourseSubscribedVideo> CourseSubscribedVideoObj;
 //	@Transient
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
-	private List<CourseSubscribedText> CourseSubscribedTextObj;
+	@JoinColumn(name="`courseId`")
+	private List<Docs> Docs;
 	 
 	@Column(name="`tag`")
 	private String tag; 
@@ -73,6 +74,9 @@ public class Course {
 	
 	@Column(name="`name`")
 	private String name;
+	
+	@Column(name="`course_icon`")
+	private byte[] courseIcon;
 
 	public List<CourseSubscribedVideo> getCourseSubscribedVideoObj() {
 		return CourseSubscribedVideoObj;
@@ -80,12 +84,13 @@ public class Course {
 	public void setCourseSubscribedVideoObj(List<CourseSubscribedVideo> courseSubscribedVideoObj) {
 		CourseSubscribedVideoObj = courseSubscribedVideoObj;
 	}
-	public List<CourseSubscribedText> getCourseSubscribedTextObj() {
-	return CourseSubscribedTextObj;
-			}
-	public void setCourseSubscribedTextObj(List<CourseSubscribedText> courseSubscribedTextObj) {
-	CourseSubscribedTextObj = courseSubscribedTextObj;
-		}
+	
+	public List<Docs> getDocs() {
+		return Docs;
+	}
+	public void setDocs(List<Docs> docs) {
+		Docs = docs;
+	}
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
@@ -184,6 +189,22 @@ public class Course {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public byte[] getCourseIcon() {
+		return courseIcon;
+	}
+	public void setCourseIcon(byte[] courseIcon) {
+		this.courseIcon = courseIcon;
+	}
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", levels=" + levels + ", categorys=" + categorys + ", CourseSubscribedVideoObj="
+				+ CourseSubscribedVideoObj + ", CourseSubscribedTextObj=" + Docs + ", tag=" + tag
+				+ ", slug=" + slug + ", is_level_override=" + is_level_override + ", available_for=" + available_for
+				+ ", desc=" + desc + ", meta_key=" + meta_key + ", meta_desc=" + meta_desc + ", created_by="
+				+ created_by + ", modified_by=" + modified_by + ", created_on=" + created_on + ", modifiedOn="
+				+ modifiedOn + ", name=" + name + "]";
 	}
 
 

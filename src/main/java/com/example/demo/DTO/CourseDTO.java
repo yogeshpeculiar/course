@@ -3,7 +3,7 @@ package com.example.demo.DTO;
 import java.util.Date;
 import java.util.List;
 
-public class insertDTO {
+public class CourseDTO {
 private int id;
 private String tag; 
 private String slug;
@@ -17,8 +17,8 @@ private String name;
 private LevelDTO levels;
 private CategoryDTO categorys;
 private List<CourseSubscribedVideoDTO> CourseSubscribedVideoObj;
-private List<CourseSubscribedTextDTO> CourseSubscribedTextObj;
-
+//private List<CourseSubscribedTextDTO> CourseSubscribedTextObj;
+private List<DocsDTO> Docs;
 
 public int getId() {
 	return id;
@@ -28,6 +28,12 @@ public void setId(int id) {
 }
 
 
+public List<DocsDTO> getDocs() {
+	return Docs;
+}
+public void setDocs(List<DocsDTO> docs) {
+	Docs = docs;
+}
 public LevelDTO getLevels() {
 	return levels;
 }
@@ -94,11 +100,12 @@ public List<CourseSubscribedVideoDTO> getCourseSubscribedVideoObj() {
 public void setCourseSubscribedVideoObj(List<CourseSubscribedVideoDTO> courseSubscribedVideoObj) {
 	CourseSubscribedVideoObj = courseSubscribedVideoObj;
 }
-public List<CourseSubscribedTextDTO> getCourseSubscribedTextObj() {
-	return CourseSubscribedTextObj;
-}
-public void setCourseSubscribedTextObj(List<CourseSubscribedTextDTO> courseSubscribedTextObj) {
-	CourseSubscribedTextObj = courseSubscribedTextObj;
-}
+	/*
+	 * public List<CourseSubscribedTextDTO> getCourseSubscribedTextObj() { return
+	 * CourseSubscribedTextObj; } public void
+	 * setCourseSubscribedTextObj(List<CourseSubscribedTextDTO>
+	 * courseSubscribedTextObj) { CourseSubscribedTextObj = courseSubscribedTextObj;
+	 * }
+	 */
 
 }

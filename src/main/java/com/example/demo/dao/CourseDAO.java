@@ -16,5 +16,5 @@ public Course update(Course c);
 public boolean isCourseIdExists(int id);
 public String delete(int id);
 public Course findCourseByID(int id);
-public String addImage(String filename);
+public byte[] addImage(String filename);
 }

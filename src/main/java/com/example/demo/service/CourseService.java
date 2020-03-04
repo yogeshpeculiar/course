@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.example.demo.DTO.insertDTO;
+import com.example.demo.DTO.CourseDTO;
 import com.example.demo.DTO.updateDTO;
 import com.example.demo.dao.CourseDAO;
 import com.example.demo.model.Course;
@@ -23,11 +23,20 @@ public class CourseService  {
 	 @Autowired 
 	 CourseDAO courseDAO;
 	 @Transactional
-	public void addCourse(insertDTO insertDTOobj) {
+	public void addCourse(CourseDTO insertDTOobj) {
 		 
 		 ModelMapper modelMapper = new ModelMapper();
 		 Course courseObj = modelMapper.map(insertDTOobj, Course.class);
 		 System.out.print(courseObj);
+		 System.out.println("course=>"+courseObj.toString());
+		 courseObj.getDocs().forEach( docObj -> {
+			 docObj.setCourse(courseObj);
+		 });
+	//	courseObj.setCourseIcon(addImage("h"));
+		 courseObj.getCourseSubscribedVideoObj().forEach( videoObj -> {
+			 videoObj.setCourse(courseObj);
+		 });
+		 
 		 courseDAO.insert(courseObj);
 	}
 	 @Transactional
@@ -58,6 +67,6 @@ public class CourseService  {
 		  return courseDAO.delete(id);
 	 }
 	 @Transactional
-	 public String addImage(String filename) {
+	 public byte[] addImage(String filename) {
 		 return courseDAO.addImage(filename);	 }
 }

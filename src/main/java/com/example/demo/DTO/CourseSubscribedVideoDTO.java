@@ -2,10 +2,13 @@ package com.example.demo.DTO;
 
 import javax.persistence.Column;
 
+import com.example.demo.model.Course;
+import com.example.demo.model.Video;
+
 public class CourseSubscribedVideoDTO {
 	private int id;
-	private int course_id;
-	private int videoId;
+	private Course course;
+	private Video video;
 	
 	public int getId() {
 		return id;
@@ -13,16 +16,17 @@ public class CourseSubscribedVideoDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getCourse_id() {
-		return course_id;
+	public Course getCourse() {
+		return course;
 	}
-	public void setCourse_id(int course_id) {
-		this.course_id = course_id;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
-	public int getVideoId() {
-		return videoId;
+	public Video getVideo() {
+		return video;
 	}
-	public void setVideoId(int videoId) {
-		this.videoId = videoId;
+	public void setVideo(Video video) {
+		this.video = video;
 	}
+	
 }

@@ -21,6 +21,7 @@ public class updateDTO {
 	
 	private LevelDTO levels;
 	private CategoryDTO categorys;
+	private DocsDTO Docs;
 	/*
 	 * private CourseSubscribedTextDTO CourseSubscribedTextObj; private
 	 * CourseSubscribedVideoDTO CourseSubscribedVideoObj;
@@ -28,6 +29,14 @@ public class updateDTO {
 	
 	public String getName() {
 		return name;
+	}
+
+	public DocsDTO getDocs() {
+		return Docs;
+	}
+
+	public void setDocs(DocsDTO docs) {
+		Docs = docs;
 	}
 
 	public void setName(String name) {

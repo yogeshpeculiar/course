@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,9 +18,7 @@ public class courseDAOImp implements CourseDAO {
 	
 	@Override
 	public void insert(Course c) {
-	
 		em.persist(c);
-		
 		}
 	public List<Course> view(){
 		List<Course> l=em.createQuery("from Course",Course.class).getResultList();//here in "from Course" Course is the model name
@@ -52,9 +52,20 @@ public class courseDAOImp implements CourseDAO {
 		return cc;
 	}
 	@Override
-	public String addImage(String filename) {
-		
-		return null;
+	public byte[] addImage(String filename) {
+		File file = new File("C:/Users/Training/Downloads/dog.jpg");
+		byte[] bFile = new byte[(int) file.length()];
+		 try {
+		     FileInputStream fileInputStream = new FileInputStream(file);
+		     //convert file into array of bytes
+		     fileInputStream.read(bFile);
+		     fileInputStream.close();
+	        } catch (Exception e) {
+		     e.printStackTrace();
+	        }
+		 
+		 
+		return bFile;
 	}
 
 }
