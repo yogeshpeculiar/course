@@ -1,9 +1,12 @@
 package com.example.demo.DTO;
 
+import com.example.demo.model.Course;
+import com.example.demo.model.Docs;
+
 public class CourseSubscribedTextDTO {
 	private int id;
-	private int courseId;
-	private int textId;
+	private Course course;
+	private Docs text;
 	
 	
 	public int getId() {
@@ -12,16 +15,17 @@ public class CourseSubscribedTextDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getCourseId() {
-		return courseId;
+	public Course getCourse() {
+		return course;
 	}
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
-	public int getTextId() {
-		return textId;
+	public Docs getText() {
+		return text;
 	}
-	public void setTextId(int textId) {
-		this.textId = textId;
+	public void setText(Docs text) {
+		this.text = text;
 	}
+	
 }
