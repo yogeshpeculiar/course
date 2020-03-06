@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "categories")
 public class Category {
 	@Id
-private int id;
+private Integer id;
 private String name;
 @Column(name="`is_active`")
 private boolean isActive;
@@ -24,10 +24,11 @@ private String modifiedBy;
 @Column(name="`modified_on`")
 private Date modifiedOn;
 
-public int getId() {
+
+public Integer getId() {
 	return id;
 }
-public void setId(int id) {
+public void setId(Integer id) {
 	this.id = id;
 }
 public String getName() {
