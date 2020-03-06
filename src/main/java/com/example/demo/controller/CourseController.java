@@ -11,16 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dao.CourseDAO;
-import com.example.demo.dao.courseDAOImp;
-import com.example.demo.model.Course;
-import com.example.demo.model.CourseSubscribedVideo;
-import com.example.demo.service.CourseService;
 import com.example.demo.DTO.CourseDTO;
-import com.example.demo.DTO.updateDTO;;
+import com.example.demo.DTO.updateDTO;
+import com.example.demo.model.Course;
+import com.example.demo.service.CourseService;;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/courses")
@@ -31,7 +27,7 @@ public class CourseController {
     
 
 	@PostMapping(value="")
-	public void addCourse(@RequestBody CourseDTO insertDTOobj  ) {
+	public void addCourse(@RequestBody CourseDTO insertDTOobj) {
 		courseService.addCourse(insertDTOobj);
 	}
 	

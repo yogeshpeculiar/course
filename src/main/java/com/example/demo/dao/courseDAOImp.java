@@ -18,6 +18,13 @@ public class courseDAOImp implements CourseDAO {
 	
 	@Override
 	public void insert(Course c) {
+		 c.getDocs().forEach( docObj -> {
+			 docObj.setCourse(c);
+		 });
+		//courseObj.setCourseIcon(addImage("h"));
+		 c.getCourseSubscribedVideoObj().forEach( videoObj -> {
+			 videoObj.setCourse(c);
+		 });
 		em.persist(c);
 		}
 	public List<Course> view(){
