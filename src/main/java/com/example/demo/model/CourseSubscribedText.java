@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "course_subscribed_texts")
 public class CourseSubscribedText {
 	@Id
-	private int id;
+	private Integer id;
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="`courses_id`")
@@ -26,10 +26,11 @@ public class CourseSubscribedText {
 	private Docs text;
 	
 	
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public Course getCourse() {

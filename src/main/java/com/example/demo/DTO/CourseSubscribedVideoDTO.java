@@ -1,12 +1,12 @@
 package com.example.demo.DTO;
 
-import javax.persistence.Column;
-
 import com.example.demo.model.Course;
 import com.example.demo.model.Video;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CourseSubscribedVideoDTO {
 	private int id;
+	@JsonIgnore
 	private Course course;
 	private Video video;
 	
