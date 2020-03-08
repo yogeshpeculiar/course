@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CourseMsApplication<hibernate-demo-master>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.revature.coursems.CourseMsApplication",
+            "projectName": "hibernate-demo-master",
+            "args": ""
+        }
+    ]
+}
