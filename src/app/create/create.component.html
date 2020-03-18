@@ -6,7 +6,7 @@
             <h3>Courses</h3>  
         </div>
         <div class="col">
-            <button class="btn btn-primary" >PUBLISH</button>
+            <button class="btn btn-primary" (click)="onSubmit()" >PUBLISH</button>
             &nbsp;&nbsp;&nbsp;
             <button class="btn btn-primary" >SAVE</button>
             &nbsp;&nbsp;&nbsp;
@@ -170,17 +170,19 @@
             <input type="file" formControlName="chooseIcon" /><br>
             </div>
     </div><br>
-    <div>
-        <button class="btn btn-primary" (click)="showTextEditor()">Attach Document</button>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-4">
+            <button class="btn btn-primary" (click)="showTextEditor()">Attach Document</button>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-primary" (click)="showTextEditor()">Attach Video</button>
+        </div>
     </div>
     <div id="textEditor" style="visibility: hidden;">
-        
-<ckeditor [editor]="editor" #editorReference (ready)="onReady($event)"></ckeditor>
-
+        <ckeditor [editor]="editor" #editorReference (ready)="onReady($event)"></ckeditor>
     </div>
-    <div style="text-align: center;" >
-        <input type="submit" class="btn btn-primary" (click)="onSubmit()">
-    </div>
+  
     </form> 
         </div>   
         

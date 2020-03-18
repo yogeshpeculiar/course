@@ -1,10 +1,23 @@
 <app-nav-bar></app-nav-bar>
-  <div>
-    <h3>Courses</h3>
-    <button class="btn btn-primary" id="createCourseButton" (click)="navigateToCreateComponent()" ><i class="fa fa-plus" aria-hidden="true"></i>
-      Create New</button>
-    <hr>
-</div>
+<hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2">
+      <h3>Courses</h3>
+      </div>
+      <div class="col-6"></div>
+      
+      <div class="col-2">
+        
+          
+        <input type="text" class="form-control" [(ngModel)]="searchText"  placeholder="search">
+       
+      </div>
+      <button class="btn btn-primary" id="createCourseButton" (click)="navigateToCreateComponent()" ><i class="fa fa-plus" aria-hidden="true"></i>Create New</button>
+    </div>
+    
+ </div>
+ <hr>
   <!-- <div>
     <jw-pagination [items]="courses" (changePage)="onPageChange($event)"></jw-pagination>
   </div> -->
@@ -22,11 +35,8 @@
             <th>Action</th>
              </tr>
     </thead>
-  
     <tbody>
-       
-   
-       <tr *ngFor="let course of courses| paginate:config ,let i=index">
+       <tr *ngFor="let course of courses | filter:searchText | paginate:config,let i=index">
            <td> {{ (config.currentPage - 1) * config.itemsPerPage + i +1 }}</td>
        <td> <a href="#">{{course.name}}</a></td>
        <td> {{course.categoryObj.name}}</td>
@@ -34,11 +44,8 @@
        <td> {{course.createdBy}}</td>
        <td>
        <ng-template *ngIf="course.isActive; then active; else inActive "></ng-template>
-       <ng-template #active><button class="btn btn-success" (click)="switchStatus(course.id)">Active</button> </ng-template>
-       <ng-template #inActive><button class="btn btn-danger" (click)="switchStatus(course.id)"> InActive</button> </ng-template>   
-
-
-          
+       <ng-template #active><button class="btn btn-success" (click)="checkSwitchToInActive(course.id)">Active</button> </ng-template>
+       <ng-template #inActive><button class="btn btn-danger" (click)="checkSwitchToActive(course.id)"> InActive</button> </ng-template>   
        </td>
        <td>
          <button class="btn btn-primary"><i class="fa fa-edit"></i></button>&nbsp;
@@ -47,8 +54,6 @@
         </td>
        </tr>
     </tbody>
-    
-    
   </table> 
   <footer>
       <div style="text-align: center;">

@@ -43,9 +43,10 @@ metaKey:string;
   }
   onSubmit(){
     console.log(this.editorContent.editorInstance.getData());
-
    this.courseService.insert(this.createForm.value,this.metaKey,this.editorContent.editorInstance.getData()).subscribe((res:any)=>{
-       });
+    this.router.navigate(['view']);
+     
+  });
                                     
   }
   public onReady( editor ) {

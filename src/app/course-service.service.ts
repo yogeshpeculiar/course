@@ -57,7 +57,6 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         
       };
       console.log(body);
-      console.log("type of meta key is"+ data.metaKey);
       const headers=new Headers();
       headers.append('Content-Type', 'application/json');
       return this.http.post("http://localhost:5656/courses/", body).pipe(map(res => res, { 'headers': headers }));

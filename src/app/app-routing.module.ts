@@ -6,12 +6,15 @@ import {CreateComponent} from './create/create.component';
 
 const routes: Routes = [
   {path:'',component:ViewComponent},
-  {path:'create',component:CreateComponent}
+  {path:'create',component:CreateComponent},
+  {path:'view',component:ViewComponent}
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),
+  
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

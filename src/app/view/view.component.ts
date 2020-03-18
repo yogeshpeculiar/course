@@ -14,6 +14,8 @@ export class ViewComponent implements OnInit {
    result:string;
    config:any;
    x:number=0;
+   retVal:boolean;
+   searchText:string;
   constructor(private courseService:CourseServiceService,private router:Router) {
     this.config = {
       itemsPerPage: 10,
@@ -50,11 +52,22 @@ export class ViewComponent implements OnInit {
   }
 
   switchStatus(id:number){
+
     this.courseService.switchStatus(id).subscribe((res :any)=>{
       
       console.log("switching status function has been called");
+      this.ngOnInit();
     });
   }
- 
+  checkSwitchToActive(id:number){
+    this.retVal=confirm("Are you sure you want to switch to ACTIVE state")
+    if(this.retVal)
+      this.switchStatus(id);
+  }
+  checkSwitchToInActive(id:number){
+    this.retVal=confirm("Are you sure you want to switch to INACTIVE state")
+    if(this.retVal)
+      this.switchStatus(id);
+  }
 
 }

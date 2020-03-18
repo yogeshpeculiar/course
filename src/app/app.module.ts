@@ -12,7 +12,7 @@ import { ReactiveFormsModule} from '@angular/forms'
 import {TagInputModule} from 'ngx-chips';   //fot getting tags as input
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
-
+import {Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +29,8 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
     TagInputModule,
     FormsModule,
     NgxPaginationModule,
-    CKEditorModule
+    CKEditorModule,
+    Ng2SearchPipeModule 
     
   ],
   providers: [
