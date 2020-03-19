@@ -47,13 +47,32 @@ export class UpdateComponent implements OnInit {
     this.viewExistingDataOfChoosenId();
     this.viewLevels();
     this.viewCategories();
+    
   }
   viewExistingDataOfChoosenId(){
 //console.log("fetched id : ==>"+this.id);
     this.courseService.viewCourseById(this.id).subscribe((res:any)=>{
-     
-      this.existingData=res;
-      console.log("existing data  =>"+this.existingData.levelObj.name);
+    this.existingData=res;
+    console.log("existing data  =>"+this.existingData.levelObj.name);
+    });
+     this.loadValueInUpdateForm();//mapping is done
+  }
+  public loadValueInUpdateForm(){
+    console.log("loadvalue function is called"+this.existingData);
+    this.createForm.patchValue({
+    courseName:this.existingData.name,
+    level:this.existingData.levelObj.id,
+    category:this.existingData.categoryObj.id,
+    slug:this.existingData.slug,
+    tags:this.existingData.tag,
+    levelOverride:this.existingData.isLevelOverride,
+    availableFor:this.existingData.availableFor,
+    completionActivityPoints:this.existingData.completionActivityPoints,
+    enrollmentActivityPoints:this.existingData.enrollmentActivityPoints,
+    description:this.existingData.description,
+    metaKey:this.existingData.metaKey,
+    metaDescription:this.existingData.metaDesc,
+    chooseIcon:this.existingData.course_icon
     });
   }
   public onReady( editor ) {

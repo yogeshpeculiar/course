@@ -24,9 +24,9 @@
             <div class="col-2">
                 <label class=" col-form-label">Course Version:</label>
             </div>
-            <div class="col-1">
+            <!-- <div class="col-1">
                 <p>{{this.existingData.version}}</p>
-            </div>
+            </div> -->
         </div>
         <br>
         <div class="row">
@@ -35,7 +35,7 @@
                     <label class=" col-form-label" >Course Name:</label>
                 </div>
                 <div class="col-3">
-                    <input type="text" placeholder="{{this.existingData.name}}" class="form-control" formControlName="courseName" [(ngModel)]="course_name" readonly/>
+                    <input type="text" class="form-control" formControlName="courseName" [(ngModel)]="course_name" readonly/>
                 </div>
         </div>
         <br>
@@ -46,13 +46,16 @@
                 </div>
                 <div class="col-3">
                     <select class="custom-select" formControlName="level">
-                        <option [value]="this.existingData.levelObj.id" selected>{{this.existingData.levelObj.name}}</option>
-                        <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option>
-                        
+                        <!-- <option [value]="this.existingData.levelObj.id" selected>{{this.existingData.levelObj.name}}</option> -->
+                        <option *ngFor="let level of levels" [value]="level.id">{{level.name}}</option> -->
+                        <div>
+
+                        </div>
+
                       </select>
                 </div>
         </div>
-        {{this.existingData.levelObj.name}}
+        
         <p *ngFor="let level of levels">name:{{level.name}}</p>
         <br>
         <div class="row">
