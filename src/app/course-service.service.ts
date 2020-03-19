@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,9 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   viewCategoryById( id:number){
     return this.http.get("http://localhost:5656/courses/viewCategoryById"+id)
       }
+  viewCourseById(id:number){
+    return this.http.get("http://localhost:5656/courses/viewCourseById/"+id);
+  }
   insert(data:any,metakeyarg:string,editorContent:string){
    
       const body={

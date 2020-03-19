@@ -13,12 +13,14 @@ import {TagInputModule} from 'ngx-chips';   //fot getting tags as input
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {Ng2SearchPipeModule } from 'ng2-search-filter';
+import { UpdateComponent } from './update/update.component';
 @NgModule({
   declarations: [
     AppComponent,
     ViewComponent,
     CreateComponent,
     NavBarComponent,
+    UpdateComponent,
     
   ],
   imports: [

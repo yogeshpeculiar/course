@@ -14,10 +14,10 @@ export class CreateComponent implements OnInit {
   @ViewChild('editorReference') editorContent:any;
   levels:Array<any>=[];
   course_name="";
-  slug:any
+  slug:any;
   categories:Array<any>=[];
   textEditor:any;
-
+  metaKey:string;
 
   createForm=new FormGroup({
   courseName:new FormControl(),
@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit {
 });
   constructor(private router:Router,private courseService:CourseServiceService) { }
    
-metaKey:string;
+
   ngOnInit(): void {
     this.viewLevels();
     this.viewCategories();
@@ -45,7 +45,6 @@ metaKey:string;
     console.log(this.editorContent.editorInstance.getData());
    this.courseService.insert(this.createForm.value,this.metaKey,this.editorContent.editorInstance.getData()).subscribe((res:any)=>{
     this.router.navigate(['view']);
-     
   });
                                     
   }

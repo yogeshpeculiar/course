@@ -48,7 +48,7 @@
        <ng-template #inActive><button class="btn btn-danger" (click)="checkSwitchToActive(course.id)"> InActive</button> </ng-template>   
        </td>
        <td>
-         <button class="btn btn-primary"><i class="fa fa-edit"></i></button>&nbsp;
+         <button class="btn btn-primary" (click)="navigatToUpdateComponent(course.id)"  ><i class="fa fa-edit"></i></button>&nbsp;
          <button class="btn btn-primary"><i class="fa fa-clone"></i></button>&nbsp;
          <button class="btn btn-primary"><i class="fa fa-trash"></i></button>&nbsp;
         </td>

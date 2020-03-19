@@ -46,6 +46,9 @@ export class ViewComponent implements OnInit {
   navigateToCreateComponent=()=>{
     this.router.navigate(['/create']);
   }
+  navigatToUpdateComponent=(id:number)=>{
+    this.router.navigate(['/update'],{ queryParams: { id: id} });
+  }
   onPageChange=(event)=>{
     this.config.currentPage=event;
     console.log('current page'+this.config.currentPage);
