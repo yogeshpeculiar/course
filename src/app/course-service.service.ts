@@ -30,6 +30,48 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   viewCourseById(id:number){
     return this.http.get("http://localhost:5656/courses/viewCourseById/"+id);
   }
+  update(data:any){
+    const body={
+        name: data.courseName,
+        tag:data.tags.toString(),
+        slug:data.slug,
+        isLevelOverride:data.levelOverride,
+        availableFor:data.availableFor,
+        completionActivityPoints:data.completionActivityPoints,
+        enrollmentActivityPoints:data.enrollmentActivityPoints,
+        description:data.description,
+        metaKey:data.metaKey.toString(),
+        metaDesc:data.metaDescription,
+        course_icon:data.chooseIcon,
+        "docObj": [{
+         "content": "this a test content"
+        }],
+        "courseSubscribedVideo": [
+          {
+              "id": 1,
+              "video": {
+                  "id": 1
+                
+              }
+          }
+      ],
+      // levelObj:this.viewLevelById(data.level),
+      "levelObj":{
+        "id": 1
+        
+    },
+      // categoryObj:this.viewCategoryById(data.category),
+      "categoryObj":{
+"id":1
+      },
+      isActive:"true"
+      };
+      const headers=new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.put("http://localhost:5656/courses/", body).pipe(map(res => res, { 'headers': headers }));
+  
+    }
+  
   insert(data:any,metakeyarg:string,editorContent:string){
    
       const body={

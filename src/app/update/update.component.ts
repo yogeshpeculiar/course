@@ -54,26 +54,29 @@ export class UpdateComponent implements OnInit {
     this.courseService.viewCourseById(this.id).subscribe((res:any)=>{
     this.existingData=res;
     console.log("existing data  =>"+this.existingData.levelObj.name);
-    });
-     this.loadValueInUpdateForm();//mapping is done
+    this.loadValueInUpdateForm();//mapping is done
+  });
+     
   }
   public loadValueInUpdateForm(){
     console.log("loadvalue function is called"+this.existingData);
     this.createForm.patchValue({
+     
     courseName:this.existingData.name,
     level:this.existingData.levelObj.id,
     category:this.existingData.categoryObj.id,
     slug:this.existingData.slug,
-    tags:this.existingData.tag,
+    tags:this.existingData.tag.split(','),
     levelOverride:this.existingData.isLevelOverride,
     availableFor:this.existingData.availableFor,
     completionActivityPoints:this.existingData.completionActivityPoints,
     enrollmentActivityPoints:this.existingData.enrollmentActivityPoints,
     description:this.existingData.description,
-    metaKey:this.existingData.metaKey,
+    metaKey:this.existingData.metaKey.split(','),
     metaDescription:this.existingData.metaDesc,
     chooseIcon:this.existingData.course_icon
     });
+    console.log(this.existingData.name);
   }
   public onReady( editor ) {
     editor.ui.getEditableElement().parentElement.insertBefore(
@@ -103,5 +106,12 @@ viewCategories(){
 }
 showTextEditor(){
 document.getElementById("textEditor").style.visibility="visible";
+}
+onSaveAsNewVersion(){
+  this.courseService.update(this.createForm.value).subscribe(
+    (res)=>{
+      console.log(res);
+    }
+  );
 }
 }
