@@ -14,6 +14,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UpdateComponent } from './update/update.component';
+import { CloneComponent } from './clone/clone.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { UpdateComponent } from './update/update.component';
     CreateComponent,
     NavBarComponent,
     UpdateComponent,
+    CloneComponent,
     
   ],
   imports: [

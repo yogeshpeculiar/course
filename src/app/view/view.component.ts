@@ -49,6 +49,9 @@ export class ViewComponent implements OnInit {
   navigatToUpdateComponent=(id:number)=>{
     this.router.navigate(['/update'],{ queryParams: { id: id} });
   }
+  navigatToCloneComponent=(id:number)=>{
+    this.router.navigate(['/clone'],{ queryParams: { id: id} });
+  }
   onPageChange=(event)=>{
     this.config.currentPage=event;
     console.log('current page'+this.config.currentPage);

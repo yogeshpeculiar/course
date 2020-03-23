@@ -7,6 +7,8 @@ import { map, retry } from 'rxjs/operators';
 })
 export class CourseServiceService {
   metakeywords:string;
+  textContent:string;
+  editorName:string;
   constructor(private http: HttpClient) { }
   view(){
     return this.http.get("http://localhost:5656/courses/")
@@ -30,8 +32,88 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   viewCourseById(id:number){
     return this.http.get("http://localhost:5656/courses/viewCourseById/"+id);
   }
-  update(data:any){
-    const body={
+  update(data:any,id:number,docId:number){
+    let body={};
+    if(docId!=null){
+      console.log("updateing existing document")
+     body={
+     id:id,
+        name: data.courseName,
+        tag:data.tags.toString(),
+        slug:data.slug,
+        isLevelOverride:data.levelOverride,
+        availableFor:data.availableFor,
+        completionActivityPoints:data.completionActivityPoints,
+        enrollmentActivityPoints:data.enrollmentActivityPoints,
+        description:data.description,
+        metaKey:data.metaKey.toString(),
+        metaDesc:data.metaDescription,
+        course_icon:data.chooseIcon,
+        docObj: [{
+          "id":docId,
+          name:data.editorName,
+         content:data.editorContentText
+        }],
+        "courseSubscribedVideo": [
+          {
+              "id": 1,
+              "video": {
+                  "id": 1
+                
+              }
+          }
+      ],
+     levelId:data.level,
+      categoryId:data.category,
+      isActive:"true"
+      };
+    }
+    else{
+      console.log("updateing new document")
+       body={
+        id:id,
+           name: data.courseName,
+           tag:data.tags.toString(),
+           slug:data.slug,
+           isLevelOverride:data.levelOverride,
+           availableFor:data.availableFor,
+           completionActivityPoints:data.completionActivityPoints,
+           enrollmentActivityPoints:data.enrollmentActivityPoints,
+           description:data.description,
+           metaKey:data.metaKey.toString(),
+           metaDesc:data.metaDescription,
+           course_icon:data.chooseIcon,
+           docObj: [{
+            name:data.newEditorName,
+            content:data.newEditorContentText
+           }],
+           "courseSubscribedVideo": [
+             {
+                 "id": 1,
+                 "video": {
+                     "id": 1
+                   
+                 }
+             }
+         ],
+        levelId:data.level,
+         categoryId:data.category,
+         isActive:"true"
+         };
+
+    }
+     
+      
+      // console.log(body.levelId);
+      const headers=new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.put("http://localhost:5656/courses/", body).pipe(map(res => res, { 'headers': headers }));
+  
+    }
+  
+  insert(data:any){
+   
+      const body={
         name: data.courseName,
         tag:data.tags.toString(),
         slug:data.slug,
@@ -44,50 +126,8 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         metaDesc:data.metaDescription,
         course_icon:data.chooseIcon,
         "docObj": [{
-         "content": "this a test content"
-        }],
-        "courseSubscribedVideo": [
-          {
-              "id": 1,
-              "video": {
-                  "id": 1
-                
-              }
-          }
-      ],
-      // levelObj:this.viewLevelById(data.level),
-      "levelObj":{
-        "id": 1
-        
-    },
-      // categoryObj:this.viewCategoryById(data.category),
-      "categoryObj":{
-"id":1
-      },
-      isActive:"true"
-      };
-      const headers=new Headers();
-      headers.append('Content-Type', 'application/json');
-      return this.http.put("http://localhost:5656/courses/", body).pipe(map(res => res, { 'headers': headers }));
-  
-    }
-  
-  insert(data:any,metakeyarg:string,editorContent:string){
-   
-      const body={
-        name: data.courseName,
-        tag:data.tags,
-        slug:data.slug,
-        isLevelOverride:data.levelOverride,
-        availableFor:data.availableFor,
-        completionActivityPoints:data.completionActivityPoints,
-        enrollmentActivityPoints:data.enrollmentActivityPoints,
-        description:data.description,
-        metaKey:metakeyarg.toString(),
-        metaDesc:data.metaDescription,
-        course_icon:data.chooseIcon,
-        "docObj": [{
-         "content": editorContent
+          "name":data.editorName,
+         "content": data.editorContentText
       }
   ],
 
@@ -106,8 +146,54 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
       headers.append('Content-Type', 'application/json');
       return this.http.post("http://localhost:5656/courses/", body).pipe(map(res => res, { 'headers': headers }));
   }
+  
+  clone(data:any,docId:number){
+   if(docId!=null){
+   this.textContent=data.editorContentText;
+  this.editorName=data.editorName; 
+  }
+   else{
+   this.textContent=data.newEditorContentText;
+   this.editorName=data.newEditorName;
+  }
+    const body={
+      name: data.courseName,
+      tag:data.tags.toString(),
+      slug:data.slug,
+      isLevelOverride:data.levelOverride,
+      availableFor:data.availableFor,
+      completionActivityPoints:data.completionActivityPoints,
+      enrollmentActivityPoints:data.enrollmentActivityPoints,
+      description:data.description,
+      metaKey:data.metaKey.toString(),
+      metaDesc:data.metaDescription,
+      course_icon:data.chooseIcon,
+      "docObj": [{
+        "name":this.editorName,
+       "content":this.textContent
+    }
+],
+
+    levelObj:{
+      "id":data.level
+    },
+    categoryObj:{
+      "id":data.category
+    },
+    isActive:"true"
+  
+      
+    };
+    console.log(body);
+    const headers=new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post("http://localhost:5656/courses/", body).pipe(map(res => res, { 'headers': headers }));
+}
 
   switchStatus(id:number){
     return this.http.get("http://localhost:5656/courses/switchStatus/"+id);
+  }
+  viewDocByCourseId(id:number){
+    return this.http.get("http://localhost:5656/courses/viewDocByCourseId/"+id);
   }
 }

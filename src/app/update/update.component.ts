@@ -4,6 +4,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import * as classicEditor from '@ckeditor/ckeditor5-build-classic';
 import {ViewChild} from '@angular/core';
 import {CourseServiceService} from '../course-service.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
@@ -11,7 +12,8 @@ import {CourseServiceService} from '../course-service.service';
 })
 export class UpdateComponent implements OnInit {
   public editor=classicEditor;
-  @ViewChild('editorReference') editorContent:any;
+  // @ViewChild('editorReference') editorContent:any;
+  
   levels:Array<any>=[];
   course_name="";
   slug:any;
@@ -21,6 +23,10 @@ export class UpdateComponent implements OnInit {
   tags:string;
   id:number;
   existingData:any;
+  saveEditorContent:boolean;
+  listOfDocs:any;
+  currentDoc:any;
+  docId:number;
   
   createForm=new FormGroup({
     courseName:new FormControl(),
@@ -36,10 +42,17 @@ export class UpdateComponent implements OnInit {
     metaKey:new FormControl(),
     metaDescription:new FormControl(),
     chooseIcon:new FormControl(),
+    newEditorName:new FormControl(),
+    newEditorContentText:new FormControl(),
+    editorName:new FormControl(),
+    editorContentText:new FormControl(),
+    
+   
   });
-  constructor(private router:Router,private courseService:CourseServiceService,private activeroute: ActivatedRoute) { }
+  constructor(private router:Router,private courseService:CourseServiceService,private activeroute: ActivatedRoute,private modalService:NgbModal) { }
 
   ngOnInit(): void {
+   
     this.activeroute.queryParams.subscribe(params => {
       this.id = params['id'];
       //console.log("-----------"+params['id'])
@@ -47,10 +60,11 @@ export class UpdateComponent implements OnInit {
     this.viewExistingDataOfChoosenId();
     this.viewLevels();
     this.viewCategories();
+    this.viewExistingDocs();
     
   }
   viewExistingDataOfChoosenId(){
-//console.log("fetched id : ==>"+this.id);
+console.log("fetched id : ==>"+this.id);
     this.courseService.viewCourseById(this.id).subscribe((res:any)=>{
     this.existingData=res;
     console.log("existing data  =>"+this.existingData.levelObj.name);
@@ -60,8 +74,10 @@ export class UpdateComponent implements OnInit {
   }
   public loadValueInUpdateForm(){
     console.log("loadvalue function is called"+this.existingData);
+    console.log("level_id=====>"+this.existingData.levelObj.id);
+    //console.log("document id is===>"+this.existingData.docObj[0].id)
     this.createForm.patchValue({
-     
+   
     courseName:this.existingData.name,
     level:this.existingData.levelObj.id,
     category:this.existingData.categoryObj.id,
@@ -74,19 +90,28 @@ export class UpdateComponent implements OnInit {
     description:this.existingData.description,
     metaKey:this.existingData.metaKey.split(','),
     metaDescription:this.existingData.metaDesc,
-    chooseIcon:this.existingData.course_icon
+    chooseIcon:this.existingData.course_icon,
+    // editorText:this.existingData.docObj.content,
+    // editorID:this.existingData.docObj[0].id
     });
-    console.log(this.existingData.name);
+   
+    // console.log(this.existingData.name);
   }
-  public onReady( editor ) {
+  public onReadyForNewEntry( editor ) {
     editor.ui.getEditableElement().parentElement.insertBefore(
         editor.ui.view.toolbar.element,
         editor.ui.getEditableElement()
     );
 }
-navigateToSeekEditor(){
-  this.router.navigate(['seek-editor']);
+public onReadyForExitstingEntry( editor ,doc:any) {
+  editor.ui.getEditableElement().parentElement.insertBefore(
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+  );
+  editor.setData(doc.content);
+ 
 }
+
 viewLevels(){
   this.courseService.viewLevel().subscribe(
     (res:any)=>{
@@ -104,14 +129,54 @@ viewCategories(){
   );
 
 }
-showTextEditor(){
-document.getElementById("textEditor").style.visibility="visible";
-}
+
 onSaveAsNewVersion(){
-  this.courseService.update(this.createForm.value).subscribe(
+  console.log("form_value====>"+this.createForm.value.level);
+  // console.log("text editor==>"+this.editorContent.editorInstance.getData())
+  if(this.currentDoc)
+  this.docId=this.currentDoc.id;
+  else 
+  this.docId=null;
+  this.courseService.update(this.createForm.value,this.id,this.docId).subscribe(
     (res)=>{
       console.log(res);
     }
   );
+
 }
+open(content) {
+  this.modalService.open(content,{
+    size: 'xl'
+});
+// document.getElementById('docName').setAttribute('value',this.currentDoc.name);
+}
+openExistingDoc(exisingContent,doc:any){
+  this.currentDoc=doc;
+  
+  console.log("document name==>"+this.currentDoc.name);
+  console.log("modal is being opened")
+  this.modalService.open(exisingContent);
+  this.createForm.controls['editorName'].setValue(this.currentDoc.name);
+  // this.ref=document.getElementById('docName');
+  //document.getElementById('docName').setAttribute('value',this.currentDoc.name);
+  // this.ref.select();
+  // this.ref.value=this.currentDoc.name;
+  // console.log("value of the reference"+ document.getElementById('docName'))
+ 
+console.log("the id of the clicked document is==>"+doc.id);
+//this.editorContenttwo.editorInstance.setData(doc.content);
+}
+ saveContent(){
+  this.saveEditorContent=true;
+  console.log("save method is called")
+ // console.log(this.createForm.value)
+  // console.log(this.editorContent)
+  // console.log(this.editorContent.editorInstance.getData())
+  this.modalService.dismissAll();
+      }
+      viewExistingDocs(){
+        this.courseService.viewDocByCourseId(this.id).subscribe((res)=>{
+          this.listOfDocs=res;
+        });
+      }
 }

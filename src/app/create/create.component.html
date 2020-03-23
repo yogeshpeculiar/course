@@ -68,7 +68,8 @@
                             <label class=" col-form-label">Tags:</label>
                         </div>
                         <div class="col-3">
-                            <input type="text" class="form-control" formControlName="tags" />
+                            <tag-input formControlName="tags" [(ngModel)]="tagValue" [modelAsStrings]="true">
+                            </tag-input>
                         </div>
                 </div>
                 <br>
@@ -148,7 +149,7 @@
                <label class=" col-form-label">Meta Keyword:</label>                                                                                                    
            </div>
            <div class="col">
-            <tag-input placeholder="enter key tag" formControlName="metaKey" [(ngModel)]="metaKey"  [modelAsStrings]="true">
+            <tag-input placeholder="enter key tag" formControlName="metaKey" value="tagValue"   [modelAsStrings]="true">
  </tag-input>
             </div>
     </div>
@@ -173,15 +174,45 @@
     <div class="row">
         <div class="col-3"></div>
         <div class="col-4">
-            <button class="btn btn-primary" (click)="showTextEditor()">Attach Document</button>
+            <button class="btn btn-primary" (click)="open(content)" >Attach Document</button>
         </div>
         <div class="col-4">
-            <button class="btn btn-primary" (click)="showTextEditor()">Attach Video</button>
+            <button class="btn btn-primary" >Attach Video</button>
         </div>
     </div>
-    <div id="textEditor" style="visibility: hidden;">
+    <!-- <div id="textEditor" style="visibility: hidden;">
         <ckeditor [editor]="editor" #editorReference (ready)="onReady($event)"></ckeditor>
-    </div>
+    </div> -->
+   
+
+
+    <ng-template #content let-modal>
+       
+        <div class="modal-header ">
+          <h4 class="modal-title" id="modal-basic-title">Add a Document</h4>
+        </div>
+        <div class="modal-body">
+            <div class ="row">
+                <div col-3></div>
+                <div col-2>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label class="col-form-label">Name</label>
+                </div>
+                <div class="col-4">
+            <input type="text" class="form-control" formControlName="editorName"/>
+                    </div>
+            </div>
+            <br>
+            <!-- <div id="textEditor" style="visibility: hidden;"> -->
+                <ckeditor formControlName="editorContentText" [editor]="editor" #editorReference (ready)="onReady($event)"></ckeditor>
+            <!-- </div> -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="saveContent()">Save</button>  
+          <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Close</button>
+        </div>
+   
+      </ng-template>
   
     </form> 
         </div>   
