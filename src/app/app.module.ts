@@ -15,6 +15,7 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UpdateComponent } from './update/update.component';
 import { CloneComponent } from './clone/clone.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { CloneComponent } from './clone/clone.component';
     NavBarComponent,
     UpdateComponent,
     CloneComponent,
+    LoginComponent,
     
   ],
   imports: [
