@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import{FormGroup, FormControl} from '@angular/forms';
+import{FormGroup, FormControl, FormArray} from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 import * as classicEditor from '@ckeditor/ckeditor5-build-classic';
 import {ViewChild} from '@angular/core';
@@ -27,6 +27,13 @@ export class UpdateComponent implements OnInit {
   listOfDocs:any;
   currentDoc:any;
   docId:number;
+  courseVideoMapping:Array<any>;
+  listOfVideos:Array<any>=[];
+  listOfAllVideos:Array<any>=[];
+  listOfVideosId:Array<number>=[];
+  listOfAllVideosId:Array<number>=[];
+  videoCheckBoxValuesArray:FormArray;
+  videoToBeAddedArray:Array<any>=[];
   
   createForm=new FormGroup({
     courseName:new FormControl(),
@@ -46,7 +53,7 @@ export class UpdateComponent implements OnInit {
     newEditorContentText:new FormControl(),
     editorName:new FormControl(),
     editorContentText:new FormControl(),
-    
+    videoToBeAdded:new FormArray([])
    
   });
   constructor(private router:Router,private courseService:CourseServiceService,private activeroute: ActivatedRoute,private modalService:NgbModal) { }
@@ -61,6 +68,8 @@ export class UpdateComponent implements OnInit {
     this.viewLevels();
     this.viewCategories();
     this.viewExistingDocs();
+    this.viewExistingVideos();
+    this.viewAllVideos();
     
   }
   viewExistingDataOfChoosenId(){
@@ -131,23 +140,35 @@ viewCategories(){
 }
 
 onSaveAsNewVersion(){
+  
+  console.log("videos to be added are =>"+this.createForm.controls['videoToBeAdded'].value);
   console.log("form_value====>"+this.createForm.value.level);
   // console.log("text editor==>"+this.editorContent.editorInstance.getData())
   if(this.currentDoc)
   this.docId=this.currentDoc.id;
   else 
   this.docId=null;
-  this.courseService.update(this.createForm.value,this.id,this.docId).subscribe(
+  this.courseService.update(this.createForm.value,this.id,this.docId,this.videoToBeAddedArray).subscribe(
     (res)=>{
       console.log(res);
-    }
-  );
-
+   });
+  this.router.navigate(['view']); 
 }
 open(content) {
   this.modalService.open(content,{
     size: 'xl'
 });
+}
+openAddVideoModal(content){
+  console.log("open modal is called")
+  this.modalService.open(content,{
+    size: 'md'
+});
+console.log("inside add video modal, size of listOfvideo"+this.listOfVideos.length)
+for(let i=0;i<this.listOfVideos.length;i++){
+  this.listOfVideosId.push(this.listOfVideos[i].id);
+  console.log("listofvideosId"+this.listOfVideos[i].id)
+}
 // document.getElementById('docName').setAttribute('value',this.currentDoc.name);
 }
 openExistingDoc(exisingContent,doc:any){
@@ -179,4 +200,63 @@ console.log("the id of the clicked document is==>"+doc.id);
           this.listOfDocs=res;
         });
       }
+      viewExistingVideos(){
+        console.log("viewExistingVideos function is called..");
+        this.courseService.viewVideoByCourseId(this.id).subscribe((res:Array<any>)=>{
+         this.courseVideoMapping=res;
+          console.log("response is:---------->"+this.courseVideoMapping)
+          console.log("video id=======>"+this.courseVideoMapping[0].videoId)
+          this.getVideoById();
+        
+        });
+
+       // console.log(this.courseVideoMapping)
+        
+        }
+        getVideoById(){
+          let i=0;
+          for(i=0;i<this.courseVideoMapping.length;i++){
+            this.courseService.viewVideoById(this.courseVideoMapping[i].videoId).subscribe(
+              (res)=>{
+                this.listOfVideos.push(res);
+                console.log("here res is===>"+res)
+                console.log("current state of listOfVideos is==>"+this.listOfVideos)
+              }
+            );
+          }
+          console.log("result==========>"+this.listOfVideos.length);
+         
+        }
+        viewAllVideos(){
+          this.courseService.viewAllVideos().subscribe(
+            (res:any)=>{
+            this.listOfAllVideos=res;
+            
+            for(let i=0;i<this.listOfAllVideos.length;i++)
+                this.listOfAllVideosId.push(this.listOfAllVideos[i].id);
+          })
+          
+        }
+       onCheckBoxChange(event){
+          console.log("Checkboxchanged method called")
+          const formArray: FormArray = this.createForm.get('videoToBeAdded') as FormArray;
+          if(event.target.checked){
+            formArray.push(new FormControl(event.target.value));
+          }
+        }
+        addSelectedVideo(){
+          const formArray: FormArray = this.createForm.get('videoToBeAdded') as FormArray;
+          console.log("add button is clicked and value===>"+formArray)
+          
+          for(let i=0;i<formArray.length;i++){
+            console.log("elements are"+formArray.at(i).value)
+           let video={
+             "videoId":formArray.at(i).value
+           }
+           this.videoToBeAddedArray.push(video);
+        }
+        console.log("resultant array:"+this.videoToBeAddedArray);
+        this.modalService.dismissAll();
+        }
+      
 }

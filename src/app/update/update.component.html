@@ -1,4 +1,15 @@
 <app-nav-bar></app-nav-bar>
+<div *ngFor="let id of listOfVideosId">
+    id of associted videos:{{id}}
+</div>
+<div *ngFor="let id of listOfAllVideosId">
+   id of available videos:{{id}}
+</div>
+<!-- <div *ngFor="let video of listOfAllVideos">
+    <div *ngIf="!listOfVideos.includes(video)">
+        video exists
+    </div>
+</div> -->
 <div class="container-fluid"> 
     <p></p>
     <div class="row">  
@@ -64,6 +75,18 @@
                     </div>
                     </div>
                     <div class="card-footer"><button class="btn btn-primary" (click)="open(content)" >Attach Document</button></div>
+                  </div>
+                  <br>
+                  <div class="card text-white bg-info mb-3 " style="max-width: 18rem;">
+                    <div class="card-header">Videos Attached</div>
+                    <div class="card-body">
+                         <p class="card-title"><b>Click to UPDATE</b></p>
+                        <div *ngFor="let video of listOfVideos">
+                      <p class="card-text" ><u>{{video.name}}</u></p>
+                    </div>
+                    <p>{{listOfVideos}}</p>
+                    </div>
+                    <div class="card-footer"><button class="btn btn-primary"  (click)="openAddVideoModal(showAvailableVideo)">Attach Videos</button></div>
                   </div>
         </div>
         <br>
@@ -279,5 +302,57 @@
         </div>
    
       </ng-template>
+
+       <ng-template #content let-modal>
+       
+        <div class="modal-header ">
+          <h4 class="modal-title" id="modal-basic-title">Add a Document</h4>
+        </div>
+        <div class="modal-body">
+            <div class ="row">
+                <div col-3></div>
+                <div col-2>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label class="col-form-label">Name</label>
+                </div>
+                <div class="col-4">
+            <input type="text" class="form-control" formControlName="newEditorName"/>
+                    </div>
+            </div>
+            <br>
+            <!-- <div id="textEditor" style="visibility: hidden;"> -->
+                <ckeditor formControlName="newEditorContentText" [editor]="editor" #editorReference (ready)="onReadyForNewEntry($event)"></ckeditor>
+            <!-- </div> -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="saveContent()">Save</button>  
+          <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Close</button>
+        </div>
+   
+      </ng-template>
+      <!-- modal to show list of available videos in order to add -->
+      <ng-template #showAvailableVideo let-modal>
+       
+        <div class="modal-header ">
+          <h4 class="modal-title" id="modal-basic-title">Add Videos</h4>
+        </div>
+        <div class="modal-body">
+            <div *ngFor="let video of listOfAllVideos">
+                <!-- <input type="checkbox" [value]="video.id" (change)="onCheckBoxChanged($event)" formControlName="videoToBeAdded">{{video.name}} -->
+                <div *ngIf="!listOfVideosId.includes(video.id)">
+                <input type="checkbox" [value]="video.id" (click)="onCheckBoxChange($event)">{{video.name}}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="addSelectedVideo()">Add</button>  
+          <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Close</button>
+        </div>
+        
+      </ng-template>
+    
+    
+
     </form> 
+   
         </div>  

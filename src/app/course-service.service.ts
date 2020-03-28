@@ -32,7 +32,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   viewCourseById(id:number){
     return this.http.get("http://localhost:5656/courses/viewCourseById/"+id);
   }
-  update(data:any,id:number,docId:number){
+  update(data:any,id:number,docId:number,videoToBeAddedArray:Array<any>){
     let body={};
     if(docId!=null){
       console.log("updateing existing document")
@@ -54,15 +54,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
           name:data.editorName,
          content:data.editorContentText
         }],
-        "courseSubscribedVideo": [
-          {
-              "id": 1,
-              "video": {
-                  "id": 1
-                
-              }
-          }
-      ],
+        "courseSubscribedVideo":videoToBeAddedArray,
      levelId:data.level,
       categoryId:data.category,
       isActive:"true"
@@ -87,15 +79,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
             name:data.newEditorName,
             content:data.newEditorContentText
            }],
-           "courseSubscribedVideo": [
-             {
-                 "id": 1,
-                 "video": {
-                     "id": 1
-                   
-                 }
-             }
-         ],
+           "courseSubscribedVideo":videoToBeAddedArray,
         levelId:data.level,
          categoryId:data.category,
          isActive:"true"
@@ -111,7 +95,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   
     }
   
-  insert(data:any){
+  insert(data:any,videoArray:Array<any>){
    
       const body={
         name: data.courseName,
@@ -137,8 +121,9 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
       categoryObj:{
         "id":data.category
       },
-      isActive:"true"
-    
+      isActive:"true",
+      "courseSubscribedVideo":videoArray
+  
         
       };
       console.log(body);
@@ -180,8 +165,16 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
     categoryObj:{
       "id":data.category
     },
-    isActive:"true"
-  
+    isActive:"true",
+    "courseSubscribedVideo":[
+      {
+        "video": {
+          "id": 1
+        }
+      }
+
+    ]
+
       
     };
     console.log(body);
@@ -195,5 +188,17 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   }
   viewDocByCourseId(id:number){
     return this.http.get("http://localhost:5656/courses/viewDocByCourseId/"+id);
+  }
+  viewVideoByCourseId(id:number){
+    return this.http.get("http://localhost:5656/courses/viewVideoByCourseId/"+id);
+  }
+  viewAllVideos(){
+    return this.http.get("http://localhost:5656/videos/listAll");
+  }
+  viewVideoById(id:number){
+    return this.http.get("http://localhost:5656/videos/listVideoById/"+id);
+  }
+  login(){
+    
   }
 }

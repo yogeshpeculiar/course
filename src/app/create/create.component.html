@@ -213,6 +213,10 @@
         </div>
    
       </ng-template>
+      <select formControlName="video" multiple>
+          <option *ngFor="let video of listOfVideos" [value]="video.id">{{video.name}}</option>
+ 
+    </select>
   
     </form> 
         </div>   

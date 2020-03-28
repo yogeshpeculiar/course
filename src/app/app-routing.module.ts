@@ -6,7 +6,7 @@ import {UpdateComponent} from './update/update.component'
 import { CloneComponent } from './clone/clone.component';
 
 const routes: Routes = [
-  {path:'',component:ViewComponent},
+  // {path:'',component:ViewComponent},
   {path:'create',component:CreateComponent},
   {path:'view',component:ViewComponent},
 {path:'update',component:UpdateComponent},

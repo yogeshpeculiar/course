@@ -24,6 +24,10 @@ export class CreateComponent implements OnInit {
   textEditor:any;
   metaKey:string;
   tagValue:string;
+  listOfVideos:any;
+  videoIdArray:Array<number>;
+  videoArray:Array<any>;
+  
 
   createForm=new FormGroup({
       courseName:new FormControl(),
@@ -40,7 +44,8 @@ export class CreateComponent implements OnInit {
       metaDescription:new FormControl(),
       chooseIcon:new FormControl(),
       editorName:new FormControl(),
-      editorContentText:new FormControl()
+      editorContentText:new FormControl(),
+      video:new FormControl()
 });
   constructor(private router:Router,private courseService:CourseServiceService, private modalService:NgbModal) { }
    
@@ -48,16 +53,18 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
     this.viewLevels();
     this.viewCategories();
+    this.viewVideos();
   }
   onSubmit(){
     // this.contentInEditor=this.editorContent.editorInstance.getData();
    // console.log(this.contentInEditor);
    // console.log(this.editorContent.editorInstance.getData())
+   this.prepareVideoObject();
    console.log("form"+this.createForm.value)
-   this.courseService.insert(this.createForm.value).subscribe((res:any)=>{
-    this.router.navigate(['view']);
+   this.courseService.insert(this.createForm.value,this.videoArray).subscribe((res:any)=>{
+   
   });
-                                    
+  this.router.navigate(['view']);                                 
   }
   public onReady( editor ) {
    // console.log("form value===>"+this.createForm.value)
@@ -110,5 +117,35 @@ open(content) {
   // console.log(this.editorContent.editorInstance.getData())
   this.modalService.dismissAll();
       }
+    viewVideos(){
+      this.courseService.viewAllVideos().subscribe(
+        (res:any)=>{
+        this.listOfVideos=res;
+      })
+      
+    }
+    prepareVideoObject(){
+      this.videoIdArray=[];
+      this.videoArray=[];
+      console.log("listOfVideos"+this.listOfVideos);
+      let i=0;
+      console.log("video array length"+this.createForm.get('video').value)
+      for(i=0; i<this.createForm.get('video').value.length;i++){
+        console.log(this.createForm.get('video').value[i]);
+        this.videoIdArray[i]=this.createForm.get('video').value[i];
+        console.log("array elements"+this.videoIdArray[i]);
+      }
+      console.log("videoIDArray"+this.videoIdArray);
+      for(i=0;i<this.videoIdArray.length;i++){
+          // let id={
+          //   "id":this.videoIdArray[i]
+          // }
+         let video={
+           "videoId":this.videoIdArray[i]
+         }
+         this.videoArray.push(video);
+      }
+      console.log("the video array is ----"+this.videoArray);
+    }
 
 }
