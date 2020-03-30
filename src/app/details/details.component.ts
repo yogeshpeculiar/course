@@ -10,6 +10,8 @@ export class DetailsComponent implements OnInit {
   id:number;
   courseObject:any;
   availableFor:Array<any>=[];
+  courseVideoMapping:Array<any>;
+  listOfVideos:Array<any>=[];
   constructor(private router: Router,private route:ActivatedRoute,private courseService:CourseServiceService) { }
 
   ngOnInit(): void {
@@ -17,6 +19,7 @@ export class DetailsComponent implements OnInit {
       this.id=params['id'];
     });
     this.viewDetails();
+    this.viewExistingVideos();
 
   }
 
@@ -42,4 +45,32 @@ export class DetailsComponent implements OnInit {
   navigatToCloneComponent=(id:number)=>{
     this.router.navigate(['/clone'],{ queryParams: { id: id} });
   }
+
+
+  viewExistingVideos(){
+    console.log("viewExistingVideos function is called..");
+    this.courseService.viewVideoByCourseId(this.id).subscribe((res:Array<any>)=>{
+     this.courseVideoMapping=res;
+      console.log("response is:---------->"+this.courseVideoMapping)
+      console.log("video id=======>"+this.courseVideoMapping[0].videoId)
+      this.getVideoById();
+    
+    });
+
+    
+    }
+    getVideoById(){
+      let i=0;
+      for(i=0;i<this.courseVideoMapping.length;i++){
+        this.courseService.viewVideoById(this.courseVideoMapping[i].videoId).subscribe(
+          (res)=>{
+            this.listOfVideos.push(res);
+            console.log("here res is===>"+res)
+            console.log("current state of listOfVideos is==>"+this.listOfVideos)
+          }
+        );
+      }
+      console.log("result==========>"+this.listOfVideos.length);
+     
+    }
 }
