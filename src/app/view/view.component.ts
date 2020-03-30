@@ -16,6 +16,7 @@ export class ViewComponent implements OnInit {
    x:number=0;
    retVal:boolean;
    searchText:string;
+   confirmation:boolean;
   constructor(private courseService:CourseServiceService,private router:Router) {
     this.config = {
       itemsPerPage: 10,
@@ -75,5 +76,21 @@ export class ViewComponent implements OnInit {
     if(this.retVal)
       this.switchStatus(id);
   }
+
+  delete(id:number)
+  {
+    console.log("delete called");
+  this.confirmation=confirm("Are you sure to delete this course")
+  if(this.confirmation)
+  {
+    this.courseService.delete(id).subscribe((res:any)=>{
+      this.view();
+      console.log("Delete this course");
+    },error=>{
+      this.view();
+      console.log(error)
+    });
+  }
+}
 
 }

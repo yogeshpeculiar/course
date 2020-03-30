@@ -16,6 +16,7 @@ import {Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UpdateComponent } from './update/update.component';
 import { CloneComponent } from './clone/clone.component';
 import { LoginComponent } from './login/login.component';
+import { DetailsComponent } from './details/details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { LoginComponent } from './login/login.component';
     UpdateComponent,
     CloneComponent,
     LoginComponent,
+    DetailsComponent,
     
   ],
   imports: [

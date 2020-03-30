@@ -42,7 +42,9 @@ export class UpdateComponent implements OnInit {
     tags:new FormControl(),
     slug:new FormControl(),
     levelOverride:new FormControl(),
-    availableFor:new FormControl(),
+    isPreSignUp:new FormControl(),
+    isSlugLogin:new FormControl(),
+    isDashboard:new FormControl(),
     completionActivityPoints:new FormControl(),
     enrollmentActivityPoints:new FormControl(),
     description:new FormControl(),
@@ -93,7 +95,9 @@ console.log("fetched id : ==>"+this.id);
     slug:this.existingData.slug,
     tags:this.existingData.tag.split(','),
     levelOverride:this.existingData.isLevelOverride,
-    availableFor:this.existingData.availableFor,
+    isPreSignUp:this.existingData.isPreSignUp,
+    isDashboard:this.existingData.isDashboard,
+    isSlugLogin:this.existingData.isSlugLogin,
     completionActivityPoints:this.existingData.completionActivityPoints,
     enrollmentActivityPoints:this.existingData.enrollmentActivityPoints,
     description:this.existingData.description,
@@ -103,7 +107,7 @@ console.log("fetched id : ==>"+this.id);
     // editorText:this.existingData.docObj.content,
     // editorID:this.existingData.docObj[0].id
     });
-   
+   console.log("the content of the metakey-->"+this.createForm.get('metaKey'));
     // console.log(this.existingData.name);
   }
   public onReadyForNewEntry( editor ) {
@@ -257,6 +261,21 @@ console.log("the id of the clicked document is==>"+doc.id);
         }
         console.log("resultant array:"+this.videoToBeAddedArray);
         this.modalService.dismissAll();
+        }
+        deleteCourseVideoMapping(id:number){
+          console.log("video id:"+id)
+          console.log("courseVideoMapping is+"+this.courseVideoMapping)
+          let courseVideoMappingId;
+          for(let i=0;i<this.courseVideoMapping.length;i++){
+            console.log(this.courseVideoMapping[i].videoId+"----->"+id)
+            if(this.courseVideoMapping[i].videoId==id)
+                courseVideoMappingId=this.courseVideoMapping[i].id;
+          }
+          return this.courseService.deleteCourseVideoMapping(courseVideoMappingId).subscribe(
+            (res)=>{
+
+            }
+          );
         }
       
 }

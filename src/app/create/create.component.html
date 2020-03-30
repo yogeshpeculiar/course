@@ -93,8 +93,8 @@
                             <label class=" col-form-label">Level Override:</label>                                                                                                    
                         </div>
                         <div class="col-1" >
-                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="true" /> On&nbsp;&nbsp;</label>
-                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="false" /> Off&nbsp;&nbsp;</label>
+                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="true" [checked]="createForm.value.levelOverride===true"/> On&nbsp;&nbsp;</label>
+                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="false" [checked]="createForm.value.levelOverride===false"/> Off&nbsp;&nbsp;</label>
                         </div>
                 </div>
                <br>
@@ -104,9 +104,10 @@
                        <label class=" col-form-label">Available For:</label>                                                                                                    
                    </div>
                    <div class="col-3" >
-                       <label><input type="checkbox"  formControlName="availableFor" />&nbsp;&nbsp;Pre-Signup</label><br>
-                       <label><input type="checkbox"  formControlName="availableFor"/>&nbsp;&nbsp;Logged in users via Slug</label><br>
-                       <label><input type="checkbox"  formControlName="availableFor" />&nbsp;&nbsp;Dashboard</label>
+                    <label><input type="checkbox"   formControlName="isPreSignUp"  [checked]="createForm.value.isPreSignUp===true"/>&nbsp;&nbsp;Pre-Signup</label><br>
+                    <label><input type="checkbox"  formControlName="isSlugLogin" [checked]="createForm.value.isSlugLogin===true"/>&nbsp;&nbsp;Logged in users via Slug</label><br>
+                    <label><input type="checkbox"  formControlName="isDashboard" [checked]="createForm.value.isDashboard===true" />&nbsp;&nbsp;Dashboard</label>
+                
                    </div>
            </div>
           <br>

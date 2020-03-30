@@ -20,7 +20,9 @@ public editor=classicEditor;
     tags:new FormControl(),
     slug:new FormControl(),
     levelOverride:new FormControl(),
-    availableFor:new FormControl(),
+    isPreSignUp:new FormControl(),
+    isSlugLogin:new FormControl(),
+    isDashboard:new FormControl(),
     enrollmentActivityPoints:new FormControl(),
     completionActivityPoints:new FormControl(),
     description:new FormControl(),
@@ -116,6 +118,7 @@ onPublish(){
       console.log(res);
     }
   );
+  this.router.navigate(['view']);   
 
 }
 viewExistingDataOfChoosenId(){
@@ -139,7 +142,9 @@ viewExistingDataOfChoosenId(){
       slug:this.existingData.slug,
       tags:this.existingData.tag.split(','),
       levelOverride:this.existingData.isLevelOverride,
-      availableFor:this.existingData.availableFor,
+      isPreSignUp:this.existingData.isPreSignUp,
+      isDashboard:this.existingData.isDashboard,
+      isSlugLogin:this.existingData.isSlugLogin,
       completionActivityPoints:this.existingData.completionActivityPoints,
       enrollmentActivityPoints:this.existingData.enrollmentActivityPoints,
       description:this.existingData.description,

@@ -42,13 +42,15 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         tag:data.tags.toString(),
         slug:data.slug,
         isLevelOverride:data.levelOverride,
-        availableFor:data.availableFor,
         completionActivityPoints:data.completionActivityPoints,
         enrollmentActivityPoints:data.enrollmentActivityPoints,
         description:data.description,
         metaKey:data.metaKey.toString(),
         metaDesc:data.metaDescription,
         course_icon:data.chooseIcon,
+        isPreSignUp:data.isPreSignUp,
+        isDashboard:data.isDashboard,
+        isSlugLogin:data.isSlugLogin,
         docObj: [{
           "id":docId,
           name:data.editorName,
@@ -68,7 +70,9 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
            tag:data.tags.toString(),
            slug:data.slug,
            isLevelOverride:data.levelOverride,
-           availableFor:data.availableFor,
+           isPreSignUp:data.isPreSignUp,
+           isDashboard:data.isDashboard,
+           isSlugLogin:data.isSlugLogin,
            completionActivityPoints:data.completionActivityPoints,
            enrollmentActivityPoints:data.enrollmentActivityPoints,
            description:data.description,
@@ -102,7 +106,9 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         tag:data.tags.toString(),
         slug:data.slug,
         isLevelOverride:data.levelOverride,
-        availableFor:data.availableFor,
+        isPreSignUp:data.isPreSignUp,
+        isDashboard:data.isDashboard,
+        isSlugLogin:data.isSlugLogin,
         completionActivityPoints:data.completionActivityPoints,
         enrollmentActivityPoints:data.enrollmentActivityPoints,
         description:data.description,
@@ -146,7 +152,9 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
       tag:data.tags.toString(),
       slug:data.slug,
       isLevelOverride:data.levelOverride,
-      availableFor:data.availableFor,
+      isPreSignUp:data.isPreSignUp,
+      isDashboard:data.isDashboard,
+      isSlugLogin:data.isSlugLogin,
       completionActivityPoints:data.completionActivityPoints,
       enrollmentActivityPoints:data.enrollmentActivityPoints,
       description:data.description,
@@ -197,6 +205,13 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   }
   viewVideoById(id:number){
     return this.http.get("http://localhost:5656/videos/listVideoById/"+id);
+  }
+  deleteCourseVideoMapping(id:number){
+    return this.http.delete("http://localhost:5656/courses/deleteCourseVideoMappingById/"+id);
+  }
+  delete(id:number)
+  {
+    return this.http.delete("http://localhost:5656/courses/"+id);
   }
   login(){
     

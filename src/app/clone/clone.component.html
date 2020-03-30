@@ -108,14 +108,14 @@
             </div>
             <br>
             <div class="row">
-                <label><input type="radio"  name="levelOverride" formControlName="levelOverride" value="true" /> On&nbsp;&nbsp;</label>
-                <label><input type="radio"  name="levelOverride" formControlName="levelOverride" value="false" /> Off&nbsp;&nbsp;</label>
+                <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="true" [checked]="cloneForm.value.levelOverride===true"/> On&nbsp;&nbsp;</label>
+                <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="false" [checked]="cloneForm.value.levelOverride===false"/> Off&nbsp;&nbsp;</label>
             </div>
             <br>
             <div class="row">
-                <label class=" col-form-label"  style="font-size-adjust: 0.45;"><input type="checkbox"  formControlName="availableFor" />&nbsp;&nbsp;Pre-Signup</label>&nbsp;&nbsp;
-                <label class=" col-form-label" style="font-size-adjust: 0.45;" ><input type="checkbox"  formControlName="availableFor"/>&nbsp;&nbsp;Logged in users via Slug</label>&nbsp;&nbsp;
-                <label class=" col-form-label"  style="font-size-adjust: 0.45;"><input type="checkbox"  formControlName="availableFor" />&nbsp;&nbsp;Dashboard</label>&nbsp;&nbsp;
+                <label class=" col-form-label"  style="font-size-adjust: 0.45;"><input type="checkbox"   formControlName="isPreSignUp"  [checked]="cloneForm.value.isPreSignUp===true"/>&nbsp;&nbsp;Pre-Signup</label>&nbsp;&nbsp;
+                <label class=" col-form-label" style="font-size-adjust: 0.45;" ><input type="checkbox"  formControlName="isSlugLogin" [checked]="cloneForm.value.isSlugLogin===true"/>&nbsp;&nbsp;Logged in users via Slug</label>&nbsp;&nbsp;
+                <label class=" col-form-label"  style="font-size-adjust: 0.45;"><input type="checkbox"  formControlName="isDashboard" [checked]="cloneForm.value.isDashboard===true" />&nbsp;&nbsp;Dashboard</label>&nbsp;&nbsp;
             </div>
             <br>
             <div class="row">

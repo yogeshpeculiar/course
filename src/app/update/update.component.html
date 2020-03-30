@@ -1,10 +1,10 @@
 <app-nav-bar></app-nav-bar>
-<div *ngFor="let id of listOfVideosId">
+<!-- <div *ngFor="let id of listOfVideosId">
     id of associted videos:{{id}}
 </div>
 <div *ngFor="let id of listOfAllVideosId">
    id of available videos:{{id}}
-</div>
+</div> -->
 <!-- <div *ngFor="let video of listOfAllVideos">
     <div *ngIf="!listOfVideos.includes(video)">
         video exists
@@ -80,9 +80,16 @@
                   <div class="card text-white bg-info mb-3 " style="max-width: 18rem;">
                     <div class="card-header">Videos Attached</div>
                     <div class="card-body">
-                         <p class="card-title"><b>Click to UPDATE</b></p>
+                         
                         <div *ngFor="let video of listOfVideos">
-                      <p class="card-text" ><u>{{video.name}}</u></p>
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="card-text" >{{video.name}}</p>
+                                </div>
+                                <div class="col-4">
+                                     <i (click)="deleteCourseVideoMapping(video.id)" class="fa fa-trash fa-sm"></i>
+                                </div>
+                            </div>
                     </div>
                     <p>{{listOfVideos}}</p>
                     </div>
@@ -156,8 +163,8 @@
                             <label class=" col-form-label">Level Override:</label>                                                                                                    
                         </div>
                         <div class="col-1" >
-                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="true" /> On&nbsp;&nbsp;</label>
-                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="false" /> Off&nbsp;&nbsp;</label>
+                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="true" [checked]="createForm.value.levelOverride===true"/> On&nbsp;&nbsp;</label>
+                            <label><input type="radio" name="levelOverride" formControlName="levelOverride" value="false" [checked]="createForm.value.levelOverride===false"/> Off&nbsp;&nbsp;</label>
                         </div>
                 </div>
                <br>
@@ -167,9 +174,9 @@
                        <label class=" col-form-label">Available For:</label>                                                                                                    
                    </div>
                    <div class="col-3" >
-                       <label><input type="checkbox"  formControlName="availableFor" />&nbsp;&nbsp;Pre-Signup</label><br>
-                       <label><input type="checkbox"  formControlName="availableFor"/>&nbsp;&nbsp;Logged in users via Slug</label><br>
-                       <label><input type="checkbox"  formControlName="availableFor" />&nbsp;&nbsp;Dashboard</label>
+                       <label><input type="checkbox"   formControlName="isPreSignUp"  [checked]="createForm.value.isPreSignUp===true"/>&nbsp;&nbsp;Pre-Signup</label><br>
+                       <label><input type="checkbox"  formControlName="isSlugLogin" [checked]="createForm.value.isSlugLogin===true"/>&nbsp;&nbsp;Logged in users via Slug</label><br>
+                       <label><input type="checkbox"  formControlName="isDashboard" [checked]="createForm.value.isDashboard===true" />&nbsp;&nbsp;Dashboard</label>
                    </div>
            </div>
           <br>
