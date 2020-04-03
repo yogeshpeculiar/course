@@ -32,7 +32,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   viewCourseById(id:number){
     return this.http.get("http://localhost:5656/courses/viewCourseById/"+id);
   }
-  update(data:any,id:number,docId:number,videoToBeAddedArray:Array<any>){
+  update(data:any,id:number,docId:number,videoToBeAddedArray:Array<any>,createdOn:any){
     let body={};
     if(docId!=null){
       console.log("updateing existing document")
@@ -51,12 +51,13 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         isPreSignUp:data.isPreSignUp,
         isDashboard:data.isDashboard,
         isSlugLogin:data.isSlugLogin,
+        createdOn:createdOn,
         docObj: [{
-          "id":docId,
+          id:docId,
           name:data.editorName,
          content:data.editorContentText
         }],
-        "courseSubscribedVideo":videoToBeAddedArray,
+        courseSubscribedVideo:videoToBeAddedArray,
      levelId:data.level,
       categoryId:data.category,
       isActive:"true"
@@ -79,6 +80,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
            metaKey:data.metaKey.toString(),
            metaDesc:data.metaDescription,
            course_icon:data.chooseIcon,
+           createdOn:createdOn,
            docObj: [{
             name:data.newEditorName,
             content:data.newEditorContentText

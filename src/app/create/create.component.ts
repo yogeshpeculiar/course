@@ -61,7 +61,7 @@ export class CreateComponent implements OnInit {
     // this.contentInEditor=this.editorContent.editorInstance.getData();
    // console.log(this.contentInEditor);
    // console.log(this.editorContent.editorInstance.getData())
-   this.prepareVideoObject();
+  //  this.prepareVideoObject();
    console.log("form"+this.createForm.value)
    this.courseService.insert(this.createForm.value,this.videoArray).subscribe((res:any)=>{
    

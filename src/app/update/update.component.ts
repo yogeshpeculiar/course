@@ -56,7 +56,7 @@ export class UpdateComponent implements OnInit {
     editorName:new FormControl(),
     editorContentText:new FormControl(),
     videoToBeAdded:new FormArray([])
-   
+    
   });
   constructor(private router:Router,private courseService:CourseServiceService,private activeroute: ActivatedRoute,private modalService:NgbModal) { }
 
@@ -144,7 +144,7 @@ viewCategories(){
 }
 
 onSaveAsNewVersion(){
-  
+  console.log("created time was:"+this.existingData.createdOn);
   console.log("videos to be added are =>"+this.createForm.controls['videoToBeAdded'].value);
   console.log("form_value====>"+this.createForm.value.level);
   // console.log("text editor==>"+this.editorContent.editorInstance.getData())
@@ -152,7 +152,7 @@ onSaveAsNewVersion(){
   this.docId=this.currentDoc.id;
   else 
   this.docId=null;
-  this.courseService.update(this.createForm.value,this.id,this.docId,this.videoToBeAddedArray).subscribe(
+  this.courseService.update(this.createForm.value,this.id,this.docId,this.videoToBeAddedArray,this.existingData.createdOn).subscribe(
     (res)=>{
       console.log(res);
    });

@@ -177,8 +177,7 @@
             </div>
             <br>
             <!-- <div id="textEditor" style="visibility: hidden;"> -->
-                <ckeditor formControlName="newEditorContentText" [editor]="editor" #editorReference (ready)="onReadyForNewEntry($event)"></ckeditor>
-            <!-- </div> -->
+                <ckeditor formControlName="newEditorContentText" [editor]="editor" #editorReference (ready)="onReadyForNewEntry($event)"></ckeditor>    
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-dark" (click)="saveContent()">Save</button>  
@@ -186,10 +185,6 @@
         </div>
    
       </ng-template>
-      <!-- List of documents
-      <div *ngFor="let doc of listOfDocs">
-      <p style="color:blue;" (click)="openExistingDoc(existingContent,doc)"><u>{{doc.name}}</u>u></p>
-      </div> -->
       <ng-template #existingContent let-modal>
        <div class="modal-header ">
           <h4 class="modal-title" id="modal-basic-title">edit Document</h4>
