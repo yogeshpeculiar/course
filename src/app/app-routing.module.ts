@@ -5,8 +5,9 @@ import {CreateComponent} from './create/create.component';
 import {UpdateComponent} from './update/update.component'
 import { CloneComponent } from './clone/clone.component';
 import {DetailsComponent} from './details/details.component';
+import{LoginComponent} from './login/login.component';
 const routes: Routes = [
-  // {path:'',component:ViewComponent},
+   {path:'',component:LoginComponent},
   {path:'create',component:CreateComponent},
   {path:'view',component:ViewComponent},
 {path:'update',component:UpdateComponent},

@@ -101,7 +101,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   
     }
   
-  insert(data:any,videoArray:Array<any>){
+  insert(data:any,videoToBeAddedArray:Array<any>){
    
       const body={
         name: data.courseName,
@@ -130,7 +130,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         "id":data.category
       },
       isActive:"true",
-      "courseSubscribedVideo":videoArray
+      courseSubscribedVideo:videoToBeAddedArray,
   
         
       };
@@ -215,7 +215,13 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   {
     return this.http.delete("http://localhost:5656/courses/"+id);
   }
-  login(){
-    
+  login(loginData:any){
+    const body={
+      username:loginData.userName,
+      password:loginData.password
+    }
+    const headers=new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post("http://localhost:5656/courses/authenticate", body).pipe(map(res => res, { 'headers': headers }));
   }
 }

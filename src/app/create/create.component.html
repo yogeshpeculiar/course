@@ -178,7 +178,7 @@
             <button class="btn btn-primary" (click)="open(content)" >Attach Document</button>
         </div>
         <div class="col-4">
-            <button class="btn btn-primary" >Attach Video</button>
+            <button class="btn btn-primary"  (click)="openAddVideoModal(showAvailableVideo)" >Attach Video</button>
         </div>
     </div>
     <!-- <div id="textEditor" style="visibility: hidden;">
@@ -214,10 +214,28 @@
         </div>
    
       </ng-template>
-      <select formControlName="video" multiple>
+      <!-- <select formControlName="video" multiple>
           <option *ngFor="let video of listOfVideos" [value]="video.id">{{video.name}}</option>
  
-    </select>
+    </select> -->
+    <ng-template #showAvailableVideo let-modal>
+       
+        <div class="modal-header ">
+          <h4 class="modal-title" id="modal-basic-title">Add Videos</h4>
+        </div>
+        <div class="modal-body">
+            <div *ngFor="let video of listOfVideos">
+               
+                <input type="checkbox" [value]="video.id" (click)="onCheckBoxChange($event)">{{video.name}}
+               
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="addSelectedVideo()">Add</button>  
+          <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Close</button>
+        </div>
+        
+      </ng-template>
   
     </form> 
         </div>   

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import{FormGroup, FormControl} from '@angular/forms';
+import{FormGroup, FormControl, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import * as classicEditor from '@ckeditor/ckeditor5-build-classic';
 import {ViewChild} from '@angular/core';
@@ -27,7 +27,8 @@ export class CreateComponent implements OnInit {
   listOfVideos:any;
   videoIdArray:Array<number>;
   videoArray:Array<any>;
-  
+  videoCheckBoxValuesArray:FormArray;
+  videoToBeAddedArray:Array<any>=[];
 
   createForm=new FormGroup({
       courseName:new FormControl(),
@@ -47,7 +48,7 @@ export class CreateComponent implements OnInit {
       chooseIcon:new FormControl(),
       editorName:new FormControl(),
       editorContentText:new FormControl(),
-      video:new FormControl()
+      videoToBeAdded:new FormArray([])
 });
   constructor(private router:Router,private courseService:CourseServiceService, private modalService:NgbModal) { }
    
@@ -63,7 +64,7 @@ export class CreateComponent implements OnInit {
    // console.log(this.editorContent.editorInstance.getData())
   //  this.prepareVideoObject();
    console.log("form"+this.createForm.value)
-   this.courseService.insert(this.createForm.value,this.videoArray).subscribe((res:any)=>{
+   this.courseService.insert(this.createForm.value,this.videoToBeAddedArray).subscribe((res:any)=>{
    
   });
   this.router.navigate(['view']);                                 
@@ -126,28 +127,54 @@ open(content) {
       })
       
     }
-    prepareVideoObject(){
-      this.videoIdArray=[];
-      this.videoArray=[];
-      console.log("listOfVideos"+this.listOfVideos);
-      let i=0;
-      console.log("video array length"+this.createForm.get('video').value)
-      for(i=0; i<this.createForm.get('video').value.length;i++){
-        console.log(this.createForm.get('video').value[i]);
-        this.videoIdArray[i]=this.createForm.get('video').value[i];
-        console.log("array elements"+this.videoIdArray[i]);
+    onCheckBoxChange(event){
+      console.log("Checkboxchanged method called")
+      const formArray: FormArray = this.createForm.get('videoToBeAdded') as FormArray;
+      if(event.target.checked){
+        formArray.push(new FormControl(event.target.value));
       }
-      console.log("videoIDArray"+this.videoIdArray);
-      for(i=0;i<this.videoIdArray.length;i++){
-          // let id={
-          //   "id":this.videoIdArray[i]
-          // }
-         let video={
-           "videoId":this.videoIdArray[i]
-         }
-         this.videoArray.push(video);
-      }
-      console.log("the video array is ----"+this.videoArray);
     }
+    addSelectedVideo(){
+      const formArray: FormArray = this.createForm.get('videoToBeAdded') as FormArray;
+      console.log("add button is clicked and value===>"+formArray)
+      
+      for(let i=0;i<formArray.length;i++){
+        console.log("elements are"+formArray.at(i).value)
+       let video={
+         "videoId":formArray.at(i).value
+       }
+       this.videoToBeAddedArray.push(video);
+    }
+    console.log("resultant array:"+this.videoToBeAddedArray);
+    this.modalService.dismissAll();
+    }
+    openAddVideoModal(content){
+      console.log("open modal is called")
+      this.modalService.open(content,{
+        size: 'md'
+    });}
+    // prepareVideoObject(){
+    //   this.videoIdArray=[];
+    //   this.videoArray=[];
+    //   console.log("listOfVideos"+this.listOfVideos);
+    //   let i=0;
+    //   console.log("video array length"+this.createForm.get('video').value)
+    //   for(i=0; i<this.createForm.get('video').value.length;i++){
+    //     console.log(this.createForm.get('video').value[i]);
+    //     this.videoIdArray[i]=this.createForm.get('video').value[i];
+    //     console.log("array elements"+this.videoIdArray[i]);
+    //   }
+    //   console.log("videoIDArray"+this.videoIdArray);
+    //   for(i=0;i<this.videoIdArray.length;i++){
+    //       // let id={
+    //       //   "id":this.videoIdArray[i]
+    //       // }
+    //      let video={
+    //        "videoId":this.videoIdArray[i]
+    //      }
+    //      this.videoArray.push(video);
+    //   }
+    //   console.log("the video array is ----"+this.videoArray);
+    // }
 
 }
